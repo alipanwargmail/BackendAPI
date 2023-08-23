@@ -6,6 +6,7 @@ const session = require('express-session');
 const morgan = require('morgan')
 var cors = require('cors');
 const routes = require('../../routes/routes')
+import serverless from 'serverless-http';
 
 const app = express()
 
