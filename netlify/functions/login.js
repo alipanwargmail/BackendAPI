@@ -46,4 +46,3 @@ exports.handler = async function (event, context) {
     body: JSON.stringify(json_msg),
   };
 }
-}
