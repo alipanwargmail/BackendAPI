@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    body {
+      font-family: Arial;
+      font-size: 17px;
+      padding: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .row {
+      display: -ms-flexbox;
+      /* IE10 */
+      display: flex;
+      -ms-flex-wrap: wrap;
+      /* IE10 */
+      flex-wrap: wrap;
+      margin: 0 -16px;
+    }
+
+    .col-25 {
+      -ms-flex: 25%;
+      /* IE10 */
+      flex: 25%;
+    }
+
+    .col-50 {
+      -ms-flex: 50%;
+      /* IE10 */
+      flex: 50%;
+    }
+
+    .col-75 {
+      -ms-flex: 75%;
+      /* IE10 */
+      flex: 75%;
+    }
+
+    .col-25,
+    .col-50,
+    .col-75 {
+      padding: 0 16px;
+    }
+
+    .container {
+      background-color: #f2f2f2;
+      padding: 5px 20px 5px 20px;
+      border: 1px solid lightgrey;
+      border-radius: 3px;
+    }
+
+    input[type=text] {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    label {
+      margin-bottom: 10px;
+    }
+
+    .icon-container {
+      margin-bottom: 20px;
+      padding: 7px 0;
+      font-size: 24px;
+    }
+
+    .btn {
+      background-color: #04AA6D;
+      color: white;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      width: 100%;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 17px;
+    }
+
+    .btn:hover {
+      background-color: #45a049;
+    }
+
+    a {
+      color: #2196F3;
+    }
+
+    hr {
+      border: 1px solid lightgrey;
+    }
+
+    span.price {
+      float: right;
+      color: grey;
+    }
+
+    .checkboxnotchange {
+      border-style: solid none none none;
+      border-color: red green blue yellow;
+    }
+
+    .red-star {
+      color: red;
+      font-size: 12px;
+    }
+
+    .blue-star {
+      color: blue;
+      font-size: 12px;
+    }
+
+    .responsive {
+      width: 100%;
+      height: auto;
+    }
+
+    .card {
+      margin: 10px
+    }
+
+    /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
+    @media (max-width: 800px) {
+      .row {
+        flex-direction: column-reverse;
+      }
+
+      .col-25 {
+        margin-bottom: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <img src="images/logo_bahana_sekuritas.PNG" alt="Bahana Sekuritas" class="responsive">
+  <h2>Form Pengkinian Data Nasabah Bahana Sekuritas</h2>
+  <p>Application To Update Client Securities Account Information</p>
+  <p>Mohon di isi bila terdapat perubahan/Please fill in if there is an update on your info</p>
+  <div class="row">
+    <div class="col-75">
+      <div class="container">
+        <form action="/action_page.php">
+
+          <div class="row">
+            <div class="col-50">
+
+              <h3>Section 1 : Data Pribadi Nasabah</h3>
+              <div class="card">
+                <div class="container">
+                  <label for="fname">1.1. Nama Sesuai Kartu Identitias/Name as stated in the ID<span class="red-star">
+                      *</span></label>
+                  <input type="text" id="fname" name="firstname" placeholder="Nama sesuai KTP" required>
+                  <label><span class="red-star">
+                    * Wajib diisi</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="tempatlahir">1.2. Tempat lahir/Place of Birth<span class="red-star">
+                    *</span></label>
+                  <input type="text" id="tempatlahir" name="tempatlahir" placeholder="Tempat Lahir" required>
+                  <label><span class="red-star">
+                    * Wajib diisi</span></label>
+                  <!--<div class="checkboxnotchange">
+                    <label>
+                      <input type="checkbox" name="checkboxtempatlahir" value="Tempat Lahir">
+                      Data Tidak Berubah
+                    </label>
+                  </div>-->
+
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="nik">1.3. No. Identitas KTP / ID Number KTP<span class="red-star">
+                    *</span></label>
+                  <input type="text" id="nik" name="nik" placeholder="NIK" required>
+                  <label><span class="red-star">
+                    * Wajib diisi</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="tanggallahir">1.4. Tanggal Lahir<span class="red-star">
+                    *</span></label><br>
+                  <input type="date" id="tanggallahir" name="tanggallahir" placeholder="8/2/2023" required>
+                  <br>
+                  <label><span class="red-star">
+                    * Wajib diisi</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="radiostatusperkawinan">1.5. Status Perkawinan/Marital Status<span class="red-star">
+                    *</span></label>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="radiostatusperkawinan" value="Menikah/Married" required>
+                      Menikah/Married
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="radiostatusperkawinan" value="Belum Menikah/Single">
+                      Belum Menikah/Single
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="radiostatusperkawinan" value="Pernah Menikah/Widow or Widower">
+                      Pernah Menikah/Widow or Widower
+                    </label>
+                  </div>
+                  <label><span class="red-star">
+                    * Wajib diisi</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="namapasangan">1.6. Nama Pasangan/Spouse Name (Diisi jika status Menikah)</label>
+                  <input type="text" id="namapasangan" name="namapasangan" placeholder="Nama Pasangan">
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="namaahliwaris">1.7. Nama Ahli waris/Beneficiary Name</label>
+                  <input type="text" id="namaahliwaris" name="namaahliwaris" placeholder="Nama Ahli Waris">
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="notelpahliwaris">1.8. Nomor Telepon/HP Ahli waris (Beneficiary Number Phone)</label>
+                  <input type="text" id="notelpahliwaris" name="notelpahliwaris" placeholder="Nomor Telpon Ahli Waris">
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="kewarganegaraan">1.9. Kewarganegaraan/Nationality<span class="red-star">
+                    *</span></label>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="kewarganegaraan" value="Indonesia" required>
+                      Indonesia
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="kewarganegaraan" value="Other Option">Other Option
+                    </label>
+                    <label>1.10. <input type="text" name="wnothertext" placeholder="custom value"></label>
+                    <label><span class="red-star">
+                      * Wajib diisi</span></label>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="npwp">1.11. NPWP/Tax Payer Reg No.<span class="red-star">
+                    *</span></label>
+                  <input type="text" id="npwp" name="npwp" placeholder="NPWP">
+                  <label><span class="red-star">
+                    * Wajib diisi</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="namaibukandung">1.12. Nama Ibu Kandung (tanpa singkatan)/Mother&#x27;s Maiden Name<span class="red-star">
+                    *</span></label>
+                  <input type="text" id="namaibukandung" name="namaibukandung" placeholder="Nama Ibu Kandung">
+                  <label><span class="red-star">
+                    * Wajib diisi</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="rubahdatapribadi">1.13. Apakah anda ingin melakukan perubahan 'Data Pribadi' ?<span class="red-star">
+                    *</span></label>
+                    <div class="radio">
+                      <label>
+                        <input type="radio" name="rubahdatapribadi" value="Iya" required>
+                        Iya/Yes
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label>
+                        <input type="radio" name="rubahdatapribadi" value="Tidak" required>
+                        Tidak/No
+                      </label>
+                    </div>  
+                  <label><span class="red-star">
+                    * Wajib diisi</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="teleponrumah">1.14. Telepon Rumah/Home Phone<span class="blue-star">*</span></label>
+                  <input type="text" id="teleponrumah" name="teleponrumah" placeholder="No Telepon Rumah">
+                  <label><span class="blue-star">* Wajib diisi jika 1.13 diisi 'Iya'</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="teleponselular">1.15. Telepon Selular/Cell Phone<span class="blue-star">*</span></label>
+                  <input type="text" id="teleponselular" name="teleponselular" placeholder="No Telepon Selular">
+                  <label><span class="blue-star">* Wajib diisi jika 1.13 diisi 'Iya'</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="email">1.16. Alamat email/e-mail Address<span class="blue-star">*</span></label>
+                  <input type="text" id="email" name="email" placeholder="Alamat Email">
+                  <label><span class="blue-star">* Wajib diisi jika 1.13 diisi 'Iya'</span></label>
+                </div>
+              </div>
+              <h3>Section 2 : Data Alamat KTP</h3>
+              <div class="card">
+                <div class="container">
+                  <label for="rubahdataalamatktp">2.1 Apakah anda ingin melakukan perubahan 'Data Alamat KTP' ?<span class="red-star">
+                    *</span></label>
+                    <div class="radio">
+                      <label>
+                        <input type="radio" name="rubahdataalamatktp" value="Iya" required>
+                        Iya/Yes
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label>
+                        <input type="radio" name="rubahdataalamatktp" value="Tidak">
+                        Tidak/No
+                      </label>
+                    </div>  
+                  <label><span class="red-star">
+                    * Wajib diisi</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="namajalanktp">2.2. Nama Jalan/Street Name<span class="blue-star">*</span></label>
+                  <input type="text" id="namajalanktp" name="namajalanktp" placeholder="Nama Jalan">
+                  <label><span class="blue-star">*Wajib diisi jika 2.1 diisi 'Iya'</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="rtrwktp">2.3. RT/RW<span class="blue-star">*</span></label>
+                  <input type="text" id="rtrwktp" name="rtrwktp" placeholder="RT/RW">
+                  <label><span class="blue-star">*Wajib diisi jika 2.1 diisi 'Iya'</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="kelurahanktp">2.4. Kelurahan<span class="blue-star">*</span></label>
+                  <input type="text" id="kelurahanktp" name="kelurahanktp" placeholder="Kelurahan">
+                  <label><span class="blue-star">*Wajib diisi jika 2.1 diisi 'Iya'</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="kecamatanktp">2.5. Kecamatan<span class="blue-star">*</span></label>
+                  <input type="text" id="kecamatanktp" name="kecamatanktp" placeholder="Kecamatan">
+                  <label><span class="blue-star">*Wajib diisi jika 2.1 diisi 'Iya'</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="provinsiktp">2.6. Provinsi<span class="blue-star">*</span></label>
+                  <input type="text" id="provinsiktp" name="provinsiktp" placeholder="Provinsi">
+                  <label><span class="blue-star">*Wajib diisi jika 2.1 diisi 'Iya'</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="kodeposktp">2.7. Kode Pos<span class="blue-star">*</span></label>
+                  <input type="text" id="kodeposktp" name="kodeposktp" placeholder="Kode Pos">
+                  <label><span class="blue-star">*Wajib diisi jika 2.1 diisi 'Iya'</span></label>
+                </div>
+              </div>
+              <h3>Section 3 : Data Alamat Domisili</h3>
+              <div class="card">
+                <div class="container">
+                  <label for="rubahdataalamatdomisili">3.1. Apakah anda ingin melakukan perubahan 'Data Alamat Domisili' ?<span class="red-star">
+                    *</span></label>
+                    <div class="radio">
+                      <label>
+                        <input type="radio" name="rubahdataalamatdomisili" value="Iya" required>
+                        Iya/Yes
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label>
+                        <input type="radio" name="rubahdataalamatdomisili" value="Tidak">
+                        Tidak/No
+                      </label>
+                    </div>  
+                  <label><span class="red-star">
+                    * Wajib diisi</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="namajalandomisili">3.2. Nama Jalan/Street Name<span class="blue-star">*</span></label>
+                  <input type="text" id="namajalanktp" name="namajalandomisili" placeholder="Nama Jalan">
+                  <label><span class="blue-star">*Wajib diisi jika 3.1 diisi 'Iya'</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="rtrwdomisili">3.3. RT/RW<span class="blue-star">*</span></label>
+                  <input type="text" id="rtrwdomisili" name="rtrwdomisili" placeholder="RT/RW">
+                  <label><span class="blue-star">*Wajib diisi jika 3.1 diisi 'Iya'</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="kelurahandomisili">3.4. Kelurahan<span class="blue-star">*</span></label>
+                  <input type="text" id="kelurahandomisili" name="kelurahandomisili" placeholder="Kelurahan">
+                  <label><span class="blue-star">*Wajib diisi jika 3.1 diisi 'Iya'</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="kecamatandomisili">3.5. Kecamatan<span class="blue-star">*</span></label>
+                  <input type="text" id="kecamatandomisili" name="kecamatandomisili" placeholder="Kecamatan">
+                  <label><span class="blue-star">*Wajib diisi jika 3.1 diisi 'Iya'</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="provinsidomisili">3.6. Provinsi<span class="blue-star">*</span></label>
+                  <input type="text" id="provinsidomisili" name="provinsidomisili" placeholder="Provinsi">
+                  <label><span class="blue-star">*Wajib diisi jika 3.1 diisi 'Iya'</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="kodeposdomisili">3.7. Kode Pos<span class="blue-star">*</span></label>
+                  <input type="text" id="kodeposdomisili" name="kodeposdomisili" placeholder="Kode Pos">
+                  <label><span class="blue-star">*Wajib diisi jika 3.1 diisi 'Iya'</span></label>
+                </div>
+              </div>
+
+              <h3>Section 4 : Data Pekerjaan</h3>
+              <div class="card">
+                <div class="container">
+                  <label for="rubahdatapekerjaan">4.1. Apakah anda ingin melakukan perubahan 'Data Pekerjaan' ?<span class="red-star">
+                    *</span></label>
+                    <div class="radio">
+                      <label>
+                        <input type="radio" name="rubahdatapekerjaan" value="Iya" required>
+                        Iya/Yes
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label>
+                        <input type="radio" name="rubahdatapekerjaan" value="Tidak">
+                        Tidak/No
+                      </label>
+                    </div>  
+                  <label><span class="red-star">
+                    * Wajib diisi</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="jenispekerjaan">4.2. Jenis Pekerjaan<span class="blue-star">*</span></label>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="jenispekerjaan" value="Pegawai Negeri (Civil Servant)">
+                      Pegawai Negeri (Civil Servant)
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="jenispekerjaan" value="Pegawai Swasta (Private Employee)">
+                      Pegawai Swasta (Private Employee)
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="jenispekerjaan" value="Pelajar/Mahasiswa (Student)">
+                      Pelajar/Mahasiswa (Student)
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="jenispekerjaan" value="Ibu rumah tangga (Housewife)">
+                      Ibu rumah tangga (Housewife)
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="jenispekerjaan" value="TNI/Polisi (Military/Police)">
+                      TNI/Polisi (Military/Police)
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="jenispekerjaan" value="Profesional (Profesional)">
+                      Profesional (Profesional)
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="jenispekerjaan" value="Pensiunan (Retired)">
+                      Pensiunan (Retired)
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="jenispekerjaan" value="Wiraswasta (Enterpreneur)">
+                      Wiraswasta (Enterpreneur)
+                    </label>
+                  </div>
+                  <label><span class="blue-star">*Wajib diisi jika 4.1 diisi 'Iya'</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="jabatanposition">4.3. Jabatan/Position<span class="blue-star">*</span></label>
+                  <input type="text" id="jabatanposition" name="jabatanposition" placeholder="Jabatan">
+                  <label><span class="blue-star">*Wajib diisi jika 4.1 diisi 'Iya'</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="lamabekerja">4.4. Lama bekerja/Working Period<span class="blue-star">*</span></label>
+                  <input type="text" id="lamabekerja" name="lamabekerja" placeholder="Lama Bekerja">
+                  <label><span class="blue-star">*Wajib diisi jika 4.1 diisi 'Iya'</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="namaperusahaan">4.5. Nama Perusahaan / Company Name<span class="blue-star">*</span></label>
+                  <input type="text" id="namaperusahaan" name="namaperusahaan" placeholder="Nama Perusahaan">
+                  <label><span class="blue-star">*Wajib diisi jika 4.1 diisi 'Iya'</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="alamatperusahaan">4.6. Alamat Perusahaan/Company Address<span class="blue-star">*</span></label>
+                  <input type="text" id="alamatperusahaan" name="alamatperusahaan" placeholder="Alamat Perusahaan">
+                  <label><span class="blue-star">*Wajib diisi jika 4.1 diisi 'Iya'</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="bidangusaha">4.7. Bidang Usaha/Industry<span class="blue-star">*</span></label>
+                  <input type="text" id="bidangusaha" name="bidangusaha" placeholder="Bidang Usaha">
+                  <label><span class="blue-star">*Wajib diisi jika 4.1 diisi 'Iya'</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="nomortelepon">4.8. Nomer Telepon/Phone No.<span class="blue-star">*</span></label>
+                  <input type="text" id="nomortelepon" name="nomortelepon" placeholder="Nomor Telepon">
+                  <label><span class="blue-star">*Wajib diisi jika 4.1 diisi 'Iya'</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="radiopendapatan">4.9. Pendapatan per Tahun Annual Income (in Rupiah)<span class="blue-star">*</span></label>
+                  <div class="radio">
+                    <label>
+                      <input type="checkbox" name="radiopendapatan" value="&lt; 24 Juta/Milliom">
+                      1. &lt; 24 Juta/Milliom
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="radiopendapatan" value="&gt; 24-60 Juta/Million">
+                      2. &gt; 24-60 Juta/Million
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="radiopendapatan" value="&gt; 60-120 Juta/Million">
+                      3. &gt; 60-120 Juta/Million
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="checkbox" name="radiopendapatan" value="&gt; 120-240 Juta/Million">
+                      4. &gt; 120-240 Juta/Million
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="checkbox" name="radiopendapatan" value="&gt; 240-360 Juta/Million">
+                      5. &gt; 240-360 Juta/Million
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="radiopendapatan" value="&gt; 360-480 Juta/Million">
+                      6. &gt; 360-480 Juta/Million
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="radiopendapatan" value="&gt; 480-600 Juta/Million">
+                      7. &gt; 480-600 Juta/Million
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="radiopendapatan" value="&gt; 600-1000 Juta/Million">
+                      8. &gt; 600-1000 Juta/Million
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="radiopendapatan" value="&gt; 1 Milyar / Billion">
+                      9. &gt; 1 Milyar / Billion
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="radiopendapatan" value="Other Option">
+                    </label>
+                    <input type="text" name="pendapatancustomvalue" placeholder="custom value">
+                  </div>
+                  <label><span class="blue-star">*Wajib diisi jika 4.1 diisi 'Iya'</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="radiosumberdana">4.10. Sumber Dana/Source of Funds<span class="blue-star">*</span></label>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="radiosumberdana" value="Gaji/Salary">
+                      1. Gaji/Salary
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="radiosumberdana" value="Pasangan/Spouse">
+                      2. Pasangan/Spouse
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="radiosumberdana" value="Hasil Usaha/Profit of business">
+                      3. Hasil Usaha/Profit of business
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="radiosumberdana" value="Hasil Investasi /Profit of investment">
+                      4. Hasil Investasi /Profit of investment
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="radiosumberdana" value="Orangtua/Parrent">
+                      5. Orangtua/Parent
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="radiosumberdana" value="Hibah, warisan/grant, heritage">
+                      6. Hibah, warisan/grant, heritage
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="radiosumberdana" value="Anak/Children">
+                      7. Anak/Children
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="radiosumberdana" value="Other Option">
+                    </label>
+                    <input type="text" name="sumberpendapatanother" placeholder="custom value">
+                  </div>
+                  <label><span class="blue-star">*Wajib diisi jika 4.1 diisi 'Iya'</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="radiotujuaninvestasi">Tujuan Investasi/Investment Purpose<span class="blue-star">*</span></label>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="radiotujuaninvestasi" value="Investasi Jangka Panjang/Long Term">
+                      1. Investasi Jangka Panjang/Long Term
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="radiotujuaninvestasi"
+                        value="Penghasilan Tambahan/Additional Income">
+                      2. Penghasilan Tambahan/Additional Income
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="radiotujuaninvestasi"
+                        value="Perdagangan Jangka Pendek/Short Term">
+                      3. Perdagangan Jangka Pendek/Short Term
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="checkboxtujuaninvestasi" value="Other Option">
+                    </label>
+                    <input type="text" name="tujuaninvestasiother" placeholder="custom value">
+                  </div>
+                  <label><span class="blue-star">*Wajib diisi jika 4.1 diisi 'Iya'</span></label>
+                </div>
+              </div>
+              <h3>Section 5 : Bank Information</h3>
+              <div class="card">
+                <div class="container">
+                  <label for="rubahdatapekerjaan">5.1. Apakah anda ingin melakukan perubahan 'Bank Information' ?<span class="red-star">
+                    *</span></label>
+                    <div class="radio">
+                      <label>
+                        <input type="radio" name="rubahdatabank" value="Iya" required>
+                        Iya/Yes
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label>
+                        <input type="radio" name="rubahdatabank" value="Tidak">
+                        Tidak/No
+                      </label>
+                    </div>  
+                  <label><span class="red-star">* Wajib diisi</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="namabank">5.2. Nama Bank/Bank Name<span class="blue-star">*</span></label>
+                  <input type="text" id="namabank" name="namabank" placeholder="Nama Bank">
+                  <label><span class="blue-star">*Wajib diisi jika 5.1 diisi 'Iya'</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="norekening">5.3. No Rekening<span class="blue-star">*</span></label>
+                  <input type="text" id="norekening" name="norekening" placeholder="No Rekening">
+                  <label><span class="blue-star">*Wajib diisi jika 5.1 diisi 'Iya'</span></label>
+                </div>
+              </div>
+              <h3>Section 6 : Additional Information</h3>
+              <div class="card">
+                <div class="container">
+                  <label for="apakahpolitisi">6.1. Apakah Anda sekarang/sebelumnya/akan menduduki posisi/sedang dicalonkan
+                    untuk posisi publik/politis (Politically Exposed Person)<span class="red-star">
+                      *</span></label>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="apakahpolitisi" value="Ya">
+                      Ya
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="apakahpolitisi" value="Tidak">
+                      Tidak
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="apakahsaudarapolitisi">2. Apakah keluarga dekat Anda Sekarang/sebelumnya/akan menduduki
+                    posisi/sedang dicalonkan untuk suatu posisi publik/politis (Politically Exposed Person)<span class="red-star">
+                      *</span></label>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="apakahsaudarapolitisi" value="Ya">
+                      Ya
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="apakahsaudarapolitisi" value="Tidak">
+                      Tidak
+                    </label>
+                  </div>
+                  <label><span class="red-star">* Wajib diisi</span></label>
+                </div>
+              </div>
+              <h3>Section 7 : Supporting Document</h3>
+              <div class="card">
+                <div class="container">
+                  <label for="filektp">7.1. Silahkan Unggah KTP Anda/Please upload your ID<span class="blue-star">
+                      *</span></label>                      
+                  <p><input type="file" id="filektp" name="filektp"></p>                         
+                  <label><span class="blue-star">* Wajib diisi jika menjawab "Iya" di 1.13, 2.1, 3.1, 4.1</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="fileselfiektp">7.2. Silahkan Unggah Foto Diri Anda dengan KTP/Please upload your selfie with ID<span class="blue-star">
+                      *</span></label>                      
+                  <p><input type="file" id="fileselfiektp" name="fileselfiektp"></p>
+                  <label><span class="blue-star">* Wajib diisi jika menjawab "Iya" di 1.13, 2.1, 3.1, 4.1</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="filebukutabungan">7.3. Silahkan Unggah Cover Buku Rekening Anda/Please upload your Bank Information<span class="blue-star">
+                      *</span></label>                      
+                  <p><input type="file" id="filebukutabungan" name="filebukutabungan"></p>
+                  <label><span class="blue-star">* Wajib diisi jika menjawab "Iya" di 5.1</span></label>
+                </div>
+              </div>
+              <h3>Section 8 : Closing</h3>
+              <div class="card">
+                <div class="container">
+                  <label for="checkboxyangberubah">8.1. Data Yang Berubah/Changed Information Request<span class="red-star">
+                      *</span></label>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxyangberubah" value="DataPribadi">
+                      1. Data Pribadi
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxyangberubah" value="DataAlamat">
+                      2. Data Alamat
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxyangberubah" value="DataPekerjaan">
+                      3. Data Pekerjaan
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxyangberubah" value="DataAlamatSuratMenyurat">
+                      4. Data Alamat Surat Menyurat
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxyangberubah" value="DataBankInformation">
+                      5. Data Bank Information
+                    </label>
+                  </div>
+                  <label>
+                    <input type="checkbox" name="checkboxyangberubah" value="OtherOption">
+                  </label>
+                  <input type="text" name="yangberubahother" placeholder="custom value">
+                  <label><span class="red-star">* Wajib diisi</span></label>
+                </div>                
+              </div>
+
+              <div class="card">
+                <div class="container">
+                  <label for="persetujuannasabah">Persetujuan Nasabah/Customer Aggreement<span class="red-star">*</span></label>
+                  <p class="help-block">Dengan mengisi formulir perubahan data ini, saya/kami menegaskan bahwa informasi
+                    yang saya /kami berikan adalah benar dan tepat dan saya /kami memberikan kuasa kepada PT. Bahana
+                    Securities untukmemeriksa kebenaran dan ketepatan informasi tersebut dari setiap sumber yang layak.
+                    (By the execution of this Application to Change of Securities Account Date, i/we hereby confirm that
+                    all the information I/we have given is true and accurate and I/we authorize PT. Bahana Securities to
+                    verify the truth and accuracy of the information with any appropriate sources:</p>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="persetujuannasabah" value="Ya" required>
+                      Ya
+                    </label>
+                  </div>
+                  <label><span class="red-star">* Wajib diisi</span></label>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <input type="submit" value="Submit" class="btn">
+        </form>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

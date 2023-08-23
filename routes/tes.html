@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    body {
+      font-family: Arial;
+      font-size: 17px;
+      padding: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .row {
+      display: -ms-flexbox;
+      /* IE10 */
+      display: flex;
+      -ms-flex-wrap: wrap;
+      /* IE10 */
+      flex-wrap: wrap;
+      margin: 0 -16px;
+    }
+
+    .col-25 {
+      -ms-flex: 25%;
+      /* IE10 */
+      flex: 25%;
+    }
+
+    .col-50 {
+      -ms-flex: 50%;
+      /* IE10 */
+      flex: 50%;
+    }
+
+    .col-75 {
+      -ms-flex: 75%;
+      /* IE10 */
+      flex: 75%;
+    }
+
+    .col-25,
+    .col-50,
+    .col-75 {
+      padding: 0 16px;
+    }
+
+    .container {
+      background-color: #f2f2f2;
+      padding: 5px 20px 5px 20px;
+      border: 1px solid lightgrey;
+      border-radius: 3px;
+    }
+
+    input[type=text] {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    label {
+      margin-bottom: 10px;
+
+    }
+
+    .icon-container {
+      margin-bottom: 20px;
+      padding: 7px 0;
+      font-size: 24px;
+    }
+
+    .btn {
+      background-color: #04AA6D;
+      color: white;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      width: 100%;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 17px;
+    }
+
+    .btn:hover {
+      background-color: #45a049;
+    }
+
+    a {
+      color: #2196F3;
+    }
+
+    hr {
+      border: 1px solid lightgrey;
+    }
+
+    span.price {
+      float: right;
+      color: grey;
+    }
+
+    .checkboxnotchange {
+      border-style: solid none none none;
+      border-color: red green blue yellow;
+    }
+
+    .red-star {
+      color: red;
+    }
+
+    .responsive {
+      width: 100%;
+      height: auto;
+    }
+
+    .card {
+      margin: 10px
+    }
+
+    /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
+    @media (max-width: 800px) {
+      .row {
+        flex-direction: column-reverse;
+      }
+
+      .col-25 {
+        margin-bottom: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <img src="images/logo_bahana_sekuritas.PNG" alt="Bahana Sekuritas" class="responsive">
+  <h2>Form Pengkinian Data Nasabah Bahana Sekuritas</h2>
+  <p>Application To Update Client Securities Account Information</p>
+  <p>Mohon di isi bila terdapat perubahan/Please fill in if there is an update on your info</p>
+  <div class="row">
+    <div class="col-75">
+      <div class="container">
+        <form action="/action_page.php">
+
+          <div class="row">
+            <div class="col-50">
+
+              <h3>Data Nasabah</h3>
+              <h4>Data Pribadi Nasabah</h4>
+              <div class="card">
+                <div class="container">
+                  <label for="fname">Nama Sesuai Kartu Identitias/Name as stated in the ID<span class="red-star">
+                      *</span></label>
+                  <input type="text" id="fname" name="firstname" placeholder="Nama sesuai KTP" required>
+                  <label><span class="red-star">
+                    * Wajib diisi</span></label>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="tempatlahir">Tempat lahir/Place of Birth</label>
+                  <input type="text" id="tempatlahir" name="tempatlahir" placeholder="Tempat Lahir">
+                  <div class="checkboxnotchange">
+                    <label>
+                      <input type="checkbox" name="checkboxtempatlahir" value="Tempat Lahir">
+                      Data Tidak Berubah
+                    </label>
+                  </div>
+
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="nik">No. Identitas KTP / ID Number KTP</label>
+                  <input type="text" id="nik" name="nik" placeholder="NIK">
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="tanggallahir">Tanggal Lahir</label><br>
+                  <input type="date" id="tanggallahir" name="tanggallahir" placeholder="8/2/2023">
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="checkboxstatusperkawinan">Status Perkawinan/Marital Status</label>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxstatusperkawinan" value="Menikah/Married">
+                      Menikah/Married
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxstatusperkawinan" value="Belum Menikah/Single">
+                      Belum Menikah/Single
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxstatusperkawinan" value="Pernah Menikah/Widow or Widower">
+                      Pernah Menikah/Widow or Widower
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="namapasangan">Nama Pasangan/Spouse Name (Diisi jika status Menikah)</label>
+                  <input type="text" id="namapasangan" name="namapasangan" placeholder="Nama Pasangan">
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="namaahliwaris">Nama Ahli waris/Beneficiary Name</label>
+                  <input type="text" id="namaahliwaris" name="namaahliwaris" placeholder="Nama Ahli Waris">
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="notelpahliwaris">Nomor Telepon/HP Ahli waris (Beneficiary Number Phone)</label>
+                  <input type="text" id="notelpahliwaris" name="notelpahliwaris" placeholder="Nomor Telpon Ahli Waris">
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="notelpahliwaris">Nomor Telepon/HP Ahli waris (Beneficiary Number Phone)</label>
+                  <input type="text" id="notelpahliwaris" name="notelpahliwaris" placeholder="Nomor Telpon Ahli Waris">
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="kewarganegaraan">Kewarganegaraan/Nationality</label>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="kewarganegaraan" value="Indonesia">
+                      Indonesia
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="kewarganegaraan" value="Other Option">Other Option
+                    </label>
+                    <input type="text" name="wnothertext" placeholder="custom value">
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="npwp">NPWP/Tax Payer Reg No.</label>
+                  <input type="text" id="npwp" name="npwp" placeholder="NPWP">
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="namaibukandung">Nama Ibu Kandung (tanpa singkatan)/Mother&#x27;s Maiden Name</label>
+                  <input type="text" id="namaibukandung" name="namaibukandung" placeholder="Nama Ibu Kandung">
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="alamatsesuaiktp">Alamat sesuai KTP/Address as Stated in the ID</label>
+                  <input type="text" id="alamatsesuaiktp" name="alamatsesuaiktp" placeholder="Alamat Sesuai KTP">
+                </div>
+              </div>
+              <h3>Alamat Sekarang/Current Address</h3>
+              <h4>Isi Alamat Dengan Lengkap</h4>
+              <div class="card">
+                <div class="container">
+                  <label for="namajalan">Nama Jalan</label>
+                  <input type="text" id="namajalan" name="namajalan" placeholder="Nama Jalan">
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="rtrw">RT/RW</label>
+                  <input type="text" id="rtrw" name="rtrw" placeholder="RT/RW">
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="kelurahankecamatan">Kelurahan &amp; Kecamatan</label>
+                  <input type="text" id="kelurahankecamatan" name="kelurahankecamatan"
+                    placeholder="Kelurahan dan Kecamatan">
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="provinsi">Provinsi</label>
+                  <input type="text" id="provinsi" name="provinsi" placeholder="Provinsi">
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="kodepos">Kode Pos</label>
+                  <input type="text" id="kodepos" name="kodepos" placeholder="Kode Pos">
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="teleponrumah">Telepon Rumah/Home Phone</label>
+                  <input type="text" id="teleponrumah" name="teleponrumah" placeholder="No Telepon Rumah">
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="teleponselular">Telepon Selular/Cell Phone</label>
+                  <input type="text" id="teleponselular" name="teleponselular" placeholder="No Telepon Selular">
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="email">Alamat email/e-mail Address</label>
+                  <input type="text" id="email" name="email" placeholder="Alamat Email">
+                </div>
+              </div>
+              <h3>Pengkinian Data/Clients Information Update</h3>
+              <h4>Mohon di isi bila terdapat perubahan/Please fill in if there is an update on your info</h4>
+              <div class="card">
+                <div class="container">
+                  <label for="checkboxpekerjaan">Jenis Pekerjaan</label>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxpekerjaan" value="Pegawai Negeri (Civil Servant)">
+                      Pegawai Negeri (Civil Servant)
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxpekerjaan" value="Pegawai Swasta (Private Employee)">
+                      Pegawai Swasta (Private Employee)
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxpekerjaan" value="Pelajar/Mahasiswa (Student)">
+                      Pelajar/Mahasiswa (Student)
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxpekerjaan" value="Ibu rumah tangga (Housewife)">
+                      Ibu rumah tangga (Housewife)
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxpekerjaan" value="TNI/Polisi (Military/Police)">
+                      TNI/Polisi (Military/Police)
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxpekerjaan" value="Profesional (Profesional)">
+                      Profesional (Profesional)
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxpekerjaan" value="Pensiunan (Retired)">
+                      Pensiunan (Retired)
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxpekerjaan" value="Wiraswasta (Enterpreneur)">
+                      Wiraswasta (Enterpreneur)
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="jabatanposition">Jabatan/Position</label>
+                  <input type="text" id="jabatanposition" name="jabatanposition" placeholder="Jabatan">
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="lamabekerja">Lama bekerja/Working Period</label>
+                  <input type="text" id="lamabekerja" name="lamabekerja" placeholder="Lama Bekerja">
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="namaperusahaan">Nama Perusahaan / Company Name</label>
+                  <input type="text" id="namaperusahaan" name="namaperusahaan" placeholder="Nama Perusahaan">
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="alamatperusahaan">Alamat Perusahaan/Company Address</label>
+                  <input type="text" id="alamatperusahaan" name="alamatperusahaan" placeholder="Alamat Perusahaan">
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="bidangusaha">Bidang Usaha/Industry</label>
+                  <input type="text" id="bidangusaha" name="bidangusaha" placeholder="Bidang Usaha">
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="nomortelepon">Nomer Telepon/Phone No.</label>
+                  <input type="text" id="nomortelepon" name="nomortelepon" placeholder="Nomor Telepon">
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="checkboxpendapatan">Pendapatan per Tahun Annual Income (in Rupiah)</label>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxpendapatan" value="&lt; 24 Juta/Milliom">
+                      &lt; 24 Juta/Milliom
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxpendapatan" value="&gt; 24-60 Juta/Million">
+                      &gt; 24-60 Juta/Million
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxpendapatan" value="&gt; 60-120 Juta/Million">
+                      &gt; 60-120 Juta/Million
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxpendapatan" value="&gt; 120-240 Juta/Million">
+                      &gt; 120-240 Juta/Million
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxpendapatan" value="&gt; 360-480 Juta/Million">
+                      &gt; 360-480 Juta/Million
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxpendapatan" value="&gt; 480-600 Juta/Million">
+                      &gt; 480-600 Juta/Million
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxpendapatan" value="&gt; 600-1000 Juta/Million">
+                      &gt; 600-1000 Juta/Million
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxpendapatan" value="&gt; 1 Milyar / Billion">
+                      &gt; 1 Milyar / Billion
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxpendapatan" value="Other Option">
+                    </label>
+                    <input type="text" name="pendapatancustomvalue" placeholder="custom value">
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="checkboxsumberdana">Sumber Dana/Source of Funds</label>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxsumberdana" value="Gaji/Salary">
+                      Gaji/Salary
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxsumberdana" value="Pasangan/Spouse">
+                      Pasangan/Spouse
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxsumberdana" value="Hasil Usaha/Profit of business">
+                      Hasil Usaha/Profit of business
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxsumberdana" value="Hasil Investasi /Profit of investment">
+                      Hasil Investasi /Profit of investment
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxsumberdana" value="Orangtua/Parrent">
+                      Orangtua/Parrent
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxsumberdana" value="Hibah, warisan/grant, heritage">
+                      Hibah, warisan/grant, heritage
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxsumberdana" value="Anak/Children">
+                      Anak/Children
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxsumberdana" value="Other Option">
+                    </label>
+                    <input type="text" name="sumberpendapatanother" placeholder="custom value">
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="checkboxtujuaninvestasi">Tujuan Investasi/Investment Purpose</label>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxtujuaninvestasi" value="Investasi Jangka Panjang/Long Term">
+                      Investasi Jangka Panjang/Long Term
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxtujuaninvestasi"
+                        value="Penghasilan Tambahan/Additional Income">
+                      Penghasilan Tambahan/Additional Income
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxtujuaninvestasi"
+                        value="Perdagangan Jangka Pendek/Short Term">
+                      Perdagangan Jangka Pendek/Short Term
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxtujuaninvestasi" value="Other Option">
+                    </label>
+                    <input type="text" name="tujuaninvestasiother" placeholder="custom value">
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="checkboxsuratmenyurat">Alamat Pengiriman Surat Menyurat/Correspondent Address</label>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxsuratmenyurat" value="Sesuai Kartu Identitas/Current ID">
+                      Sesuai Kartu Identitas/Current ID
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxsuratmenyurat" value="Alamat Sekarang/Current Address">
+                      Alamat Sekarang/Current Address
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxsuratmenyurat" value="Alamat Kantor/Office Address">
+                      Alamat Kantor/Office Address
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxsuratmenyurat" value="Alamat Email/Email Address">
+                      Alamat Email/Email Address
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="checkboxsuratmenyurat" value="__other_option__">
+                    </label>
+                    <input type="text" name="suratmenyuratotheroption" placeholder="custom value">
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="rekeningbankpridadi">Rekening Bank Pribadi/Personal Bank Account</label>
+                  <input type="text" id="rekeningbankpridadi" name="rekeningbankpridadi"
+                    placeholder="Rekening Bank Pribadi">
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="namabank">Nama Bank/Bank Name</label>
+                  <input type="text" id="namabank" name="namabank" placeholder="Nama Bank">
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="norekening">No Rekening</label>
+                  <input type="text" id="norekening" name="norekening" placeholder="No Rekening">
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="apakahpolitisi">1. Apakah Anda sekarang/sebelumnya/akan menduduki posisi/sedang dicalonkan
+                    untuk posisi publik/politis (Politically Exposed Person)</label>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="apakahpolitisi" value="Ya">
+                      Ya
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="apakahpolitisi" value="Tidak">
+                      Tidak
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="apakahsaudarapolitisi">2. Apakah keluarga dekat Anda Sekarang/sebelumnya/akan menduduki
+                    posisi/sedang dicalonkan untuk suatu posisi publik/politis (Politically Exposed Person)</label>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="apakahsaudarapolitisi" value="Ya">
+                      Ya
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="apakahsaudarapolitisi" value="Tidak">
+                      Tidak
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <label for="norekening">Persetujuan Nasabah/Customer Aggreement</label>
+                  <p class="help-block">Dengan mengisi formulir perubahan data ini, saya/kami menegaskan bahwa informasi
+                    yang saya /kami berikan adalah benar dan tepat dan saya /kami memberikan kuasa kepada PT. Bahana
+                    Securities untukmemeriksa kebenaran dan ketepatan informasi tersebut dari setiap sumber yang layak.
+                    (By the execution of this Application to Change of Securities Account Date, i/we hereby confirm that
+                    all the information I/we have given is true and accurate and I/we authorize PT. Bahana Securities to
+                    verify the truth and accuracy of the information with any appropriate sources:</p>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="entry.37968371" value="Ya" required>
+                      Ya
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <input type="submit" value="Submit" class="btn">
+        </form>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
