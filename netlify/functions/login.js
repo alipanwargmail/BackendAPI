@@ -22,8 +22,7 @@ exports.handler = async function (event, context) {
           console.log('User [' + req.body.username + '] has logged in.');
           const body = req.body;
           const ptoken = jwt.sign({ user: body }, KEY_TOKEN);
-          console.log(login_ok)
-          json_msg = '{ result: "OK", message: "Login OK", user_id: value.id, username: value.username, role_user: value.role_user, email: value.email, token: ptoken }';
+          json_msg = '{ result: "OK", message: "Login OK", user_id: value.id, username: value.username, role_user: value.role_user, email: value.email, token: '+ptoken+' }';
           //res.status(200).json({ result: "OK", message: "Login OK", user_id: value.id, username: value.username, role_user: value.role_user, email: value.email, token: ptoken });
         } else {
             json_msg = '{ result: "Not Ok", message: "Incorrect username or password" }';
@@ -37,7 +36,7 @@ exports.handler = async function (event, context) {
     }
   }
   if (i == USERS.length) {
-    console.log(login_ok)
+    //console.log(login_ok)
     json_msg = '{ result: "Not Ok", message: "Incorrect username or password" }';
     //res.status(200).json({ result: "Not Ok", message: "Incorrect username or password" });
   }
