@@ -16,7 +16,7 @@ exports.handler = async function (event, context) {
 
     while (i < USERS.length && !breakloop) {
       log += USERS[i].username+ "|<"+JSON.parse(event.body).username+">|"+user+"|"
-      
+      console.log(USERS[i].username+ "|<"+JSON.parse(event.body).username+">|"+user+"|")
       
       if (USERS[i].username == user) {
         log += "username " + user + " found|"
