@@ -10,11 +10,12 @@ exports.handler = async function (event, context) {
   let i = 0
   let log = event.body + "|" + KEY_TOKEN + "|"//JSON.stringify(body)+"|";
   log += "username: " + username + " password: " + password + "|USERS.length: " + USERS.length + "|"
-  try {
+
     while (i < USERS.length) {
       const value = USERS[i]
       if (value.username === username) {
         log += "username " + username + " found|";
+        /*
         bcryptjs.compare(password, value.password, (err, valid) => {
           if (err) {
             log += "Error on password validation|";
@@ -32,6 +33,7 @@ exports.handler = async function (event, context) {
             //res.status(200).json({ result: "Not Ok", message: "Incorrect username or password" });
           }
         });
+        */
         log += "about to break i: " + i + "|";
         break;
       }
@@ -45,9 +47,7 @@ exports.handler = async function (event, context) {
       json_msg = '{ result: "Not Ok", message: "Incorrect username or password", log="' + log + '" }';
       //res.status(200).json({ result: "Not Ok", message: "Incorrect username or password" });
     }
-  } catch (e) {
-    log += "EXCEPTION " + e + "|"
-  }
+
   return {
     statusCode: 200,
     body: JSON.stringify(json_msg),
