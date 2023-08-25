@@ -14,11 +14,12 @@ exports.handler = async function (event, context) {
    // json_msg = '{log="'+log+'"}'
 var breakloop = false
     while (i < USERS.length && !breakloop) {
-      log += USERS[i].username+ "|"
+      log += USERS[i].username+ "|<"+username+">|"
       
+      /*
       if (USERS[i].username == username) {
         log += "username " + username + " found|"
-        /*
+        
         bcryptjs.compare(password, value.password, (err, valid) => {
           if (err) {
             log += "Error on password validation|";
@@ -36,14 +37,15 @@ var breakloop = false
             //res.status(200).json({ result: "Not Ok", message: "Incorrect username or password" });
           }
         });
-        */
+        
         log += "about to break i: " + i + "|"
         breakloop = true
       }
       else {
         i++
       }
-     
+     */
+    i++
     }
     if (i == USERS.length) {
       log += "i == USERS.length|";
