@@ -6,7 +6,7 @@ var USERS = require('../../arrayusers.js')
 
 exports.handler = async function (event, context) {
   
-  const parsedBody = parser(event)
+  const parsedBody = await parser(event)
     let username = parsedBody.username
     let password = parsedBody.password
     let json_msg = "";
