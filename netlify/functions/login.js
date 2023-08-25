@@ -7,12 +7,13 @@ var USERS = require('../../arrayusers.js')
 
 exports.handler = async function (event, context) {
   
+  
   let body = JSON.parse(event.body)
     let username = body.username
     let password = body.password
     let json_msg = "";
   let i = 0
-  let log = body+"|";
+  let log = JSON.stringify(body)+"|";
   log += "username: "+username+" password: "+password+"|USERS.length: "+USERS.length+"|";
   while (i < USERS.length) {
     const value = USERS[i]
