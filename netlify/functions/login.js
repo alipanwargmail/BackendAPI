@@ -5,7 +5,7 @@ var USERS = require('../../arrayusers.js')
 exports.handler = async function (event, context) {
   
   let user = JSON.parse(event.body).username
-  let password = JSON.parse(event.body).password
+  let pass = JSON.parse(event.body).password
   let json_msg = "";
   let i = 0
   var breakloop = false
@@ -17,10 +17,10 @@ exports.handler = async function (event, context) {
     while (i < USERS.length && !breakloop) {
       log += USERS[i].username+ "|<"+JSON.parse(event.body).username+">|"+user+"|"
       
-      /*
+      
       if (USERS[i].username == username) {
         log += "username " + username + " found|"
-        
+        /*
         bcryptjs.compare(password, value.password, (err, valid) => {
           if (err) {
             log += "Error on password validation|";
@@ -38,14 +38,14 @@ exports.handler = async function (event, context) {
             //res.status(200).json({ result: "Not Ok", message: "Incorrect username or password" });
           }
         });
-        
+     */   
         log += "about to break i: " + i + "|"
         breakloop = true
       }
       else {
         i++
       }
-     */
+     
     i++
     }
     if (i == USERS.length) {
