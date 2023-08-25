@@ -1,12 +1,14 @@
 
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt')
+const parser = require("body-parser-for-serverless");
 var USERS = require('../../arrayusers.js')
 
 exports.handler = async function (event, context) {
-
-    let username = event.body.username
-    let password = event.body.password
+  
+  const parsedBody = parser(event)
+    let username = parsedBody.username
+    let password = parsedBody.password
     let json_msg = "";
   let i = 0
   let log = "";
