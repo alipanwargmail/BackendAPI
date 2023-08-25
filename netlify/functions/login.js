@@ -2,17 +2,18 @@ const jwt = require('jsonwebtoken');
 const bcryptjs = require('bcryptjs')
 var USERS = require('../../arrayusers.js')
 
-exports.handler = async function (event, context) {
-  const KEY_TOKEN = "SECRETTOKENLHO"
-  let username = JSON.parse(event.body).username
+exports.handler = function (event, context) {
+  
+  let user = JSON.parse(event.body).username
   let password = JSON.parse(event.body).password
   let json_msg = "";
   let i = 0
+  var breakloop = false
   let log = event.body + "|" + KEY_TOKEN + "|"//JSON.stringify(body)+"|";
-  log += "username: " + username + " password: " + password + "|USERS.length: " + USERS.length + "|"
+  log += "username: " + user + " password: " + password + "|USERS.length: " + USERS.length + "|"
   
    // json_msg = '{log="'+log+'"}'
-var breakloop = false
+
     while (i < USERS.length && !breakloop) {
       log += USERS[i].username+ "|<"+JSON.parse(event.body).username+">|"
       
