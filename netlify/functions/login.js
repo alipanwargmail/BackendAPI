@@ -20,6 +20,7 @@ exports.handler = async function (event, context) {
       
       if (USERS[i].username == user) {
         log += "username " + user + " found|"
+        console.log("ok nih")
         /*
         bcryptjs.compare(pass, value.password, (err, valid) => {
           if (err) {
@@ -40,13 +41,14 @@ exports.handler = async function (event, context) {
         });
      */   
         log += "about to break i: " + i + "|"
-        breakloop = true
+        console.log("about to break")
+        break;
       }
       else {
         i++
       }
      
-    i++
+    
     }
     if (i == USERS.length) {
       log += "i == USERS.length|";
