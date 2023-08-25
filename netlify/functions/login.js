@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 var USERS = require('../../arrayusers.js')
 
 exports.handler = async function (event, context) {
