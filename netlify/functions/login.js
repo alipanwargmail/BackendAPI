@@ -12,12 +12,12 @@ exports.handler = async function (event, context) {
   log += "username: " + username + " password: " + password + "|USERS.length: " + USERS.length + "|"
   
    // json_msg = '{log="'+log+'"}'
-
-    while (i < USERS.length) {
+var breakloop = false
+    while (i < USERS.length && !breakloop) {
       log += USERS[i].username+ "|"
       
       if (USERS[i].username == username) {
-        log += "username " + username + " found|";
+        log += "username " + username + " found|"
         /*
         bcryptjs.compare(password, value.password, (err, valid) => {
           if (err) {
@@ -37,8 +37,8 @@ exports.handler = async function (event, context) {
           }
         });
         */
-        log += "about to break i: " + i + "|";
-        break;
+        log += "about to break i: " + i + "|"
+        breakloop = true
       }
       else {
         i++
