@@ -9,26 +9,30 @@ exports.handler = async function (event, context) {
     let password = event.body.password
     let json_msg = "";
   let i = 0
+  let log = "";
+  log = "username: "+username+" password: "+password+"|USERS.length: "+USERS.length+"|";
   while (i < USERS.length) {
     const value = USERS[i]
     if (value.username === username) {
+      log += "username "+username+" found|";
       bcrypt.compare(password, value.password, (err, valid) => {
         if (err) {
-          console.log("Error on password validation");
-          json_msg = '{ result: "Not Ok", message: "Error on password validation" }';
+          log += "Error on password validation|";
+          json_msg = '{ result: "Not Ok", message: "Error on password validation", log="'+log+'"}';
           //res.status(200).json({ result: "Not Ok", message: "Error on password validation" });
         }
         if (valid) {
           console.log('User [' + req.body.username + '] has logged in.');
           const body = req.body;
           const ptoken = jwt.sign({ user: body }, KEY_TOKEN);
-          json_msg = '{ result: "OK", message: "Login OK", user_id: value.id, username: value.username, role_user: value.role_user, email: value.email, token: '+ptoken+' }';
+          json_msg = '{ result: "OK", message: "Login OK", user_id: value.id, username: value.username, role_user: value.role_user, email: value.email, token: '+ptoken+', log="'+log+'" }';
           //res.status(200).json({ result: "OK", message: "Login OK", user_id: value.id, username: value.username, role_user: value.role_user, email: value.email, token: ptoken });
         } else {
-            json_msg = '{ result: "Not Ok", message: "Incorrect username or password" }';
+            json_msg = '{ result: "Not Ok", message: "Incorrect username or password", log="'+log+'" }';
           //res.status(200).json({ result: "Not Ok", message: "Incorrect username or password" });
         }
       });
+      log += "about to break i: "+i+"|";
       break;
     }
     else {
@@ -36,8 +40,9 @@ exports.handler = async function (event, context) {
     }
   }
   if (i == USERS.length) {
+    log += "i == USERS.length|";
     //console.log(login_ok)
-    json_msg = '{ result: "Not Ok", message: "Incorrect username or password" }';
+    json_msg = '{ result: "Not Ok", message: "Incorrect username or password", log="'+log+'" }';
     //res.status(200).json({ result: "Not Ok", message: "Incorrect username or password" });
   }
   return {
