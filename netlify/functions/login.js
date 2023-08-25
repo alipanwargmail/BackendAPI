@@ -1,8 +1,6 @@
 require('dotenv').config()
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt')
-//const parser = require("body-parser-for-serverless");
-const bodyParser = require('body-parser')
 var USERS = require('../../arrayusers.js')
 
 exports.handler = async function (event, context) {
