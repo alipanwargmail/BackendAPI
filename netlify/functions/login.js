@@ -9,8 +9,7 @@ exports.handler = async function (event, context) {
     let json_msg = "";
   let i = 0
   let log = event.body+"|"+KEY_TOKEN+"|"//JSON.stringify(body)+"|";
-  log += "username: "+username+" password: "+password+"|USERS.length: "+USERS.length+"|";
-  json_msg = '{log="'+log+'"}'
+  log += "username: "+username+" password: "+password+"|USERS.length: "+USERS.length+"|"
   
   while (i < USERS.length) {
     const value = USERS[i]
