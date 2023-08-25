@@ -1,10 +1,9 @@
-require('dotenv').config()
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt')
 var USERS = require('../../arrayusers.js')
 
 exports.handler = async function (event, context) {
-  const KEY_TOKEN = process.env.SECRETTOKEN
+  const KEY_TOKEN = "SECRETTOKENLHO"
     let username = JSON.parse(event.body).username
     let password = JSON.parse(event.body).password
     let json_msg = "";
