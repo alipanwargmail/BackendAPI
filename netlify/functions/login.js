@@ -10,7 +10,7 @@ exports.handler = async function (event, context) {
   let i = 0
   var breakloop = false
   let log = event.body + "|" //JSON.stringify(body)+"|";
-  log += "username: " + user + " password: " + password + "|USERS.length: " + USERS.length + "|"
+  log += "username: " + user + " password: " + pass + "|USERS.length: " + USERS.length + "|"
   
    // json_msg = '{log="'+log+'"}'
 
@@ -21,7 +21,7 @@ exports.handler = async function (event, context) {
       if (USERS[i].username == username) {
         log += "username " + username + " found|"
         /*
-        bcryptjs.compare(password, value.password, (err, valid) => {
+        bcryptjs.compare(pass, value.password, (err, valid) => {
           if (err) {
             log += "Error on password validation|";
             json_msg = '{ result: "Not Ok", message: "Error on password validation", log="' + log + '"}';
