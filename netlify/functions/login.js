@@ -15,6 +15,7 @@ exports.handler = async function (event, context) {
    // json_msg = '{log="'+log+'"}'
 
     while (i < USERS.length && !breakloop) {
+      let value = USERS[i]
       log += USERS[i].username+ "|<"+JSON.parse(event.body).username+">|"+user+"|"
       console.log(USERS[i].username+ "|<"+JSON.parse(event.body).username+">|"+user+"|")
       
