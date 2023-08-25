@@ -21,7 +21,7 @@ exports.handler = async function (event, context) {
       if (USERS[i].username == user) {
         log += "username " + user + " found|"
         console.log("ok nih")
-        /*
+        
         bcryptjs.compare(pass, value.password, (err, valid) => {
           if (err) {
             log += "Error on password validation|";
@@ -39,7 +39,7 @@ exports.handler = async function (event, context) {
             //res.status(200).json({ result: "Not Ok", message: "Incorrect username or password" });
           }
         });
-     */   
+      
         log += "about to break i: " + i + "|"
         console.log("about to break")
         break;
@@ -49,7 +49,7 @@ exports.handler = async function (event, context) {
       } 
     
     }
-    json_msg = '{log="'+log+'"}'
+    //json_msg = '{log="'+log+'"}'
     console.log('keluar loop')
     if (i == USERS.length) {
       log += "i == USERS.length|";
