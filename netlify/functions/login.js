@@ -13,6 +13,8 @@ exports.handler = async function (event, context) {
   let i = 0
   let log = event.body+"|"//JSON.stringify(body)+"|";
   log += "username: "+username+" password: "+password+"|USERS.length: "+USERS.length+"|";
+  json_msg = '{log="'+log+'"}'
+  /*
   while (i < USERS.length) {
     const value = USERS[i]
     if (value.username === username) {
@@ -46,7 +48,7 @@ exports.handler = async function (event, context) {
     //console.log(login_ok)
     json_msg = '{ result: "Not Ok", message: "Incorrect username or password", log="'+log+'" }';
     //res.status(200).json({ result: "Not Ok", message: "Incorrect username or password" });
-  }
+  }*/
   return {
     statusCode: 200,
     body: JSON.stringify(json_msg),
