@@ -11,8 +11,8 @@ exports.handler = async function (event, context) {
     let password = parsedBody.password
     let json_msg = "";
   let i = 0
-  let log = "";
-  log = "username: "+username+" password: "+password+"|USERS.length: "+USERS.length+"|";
+  let log = parsedBody+"|";
+  log += "username: "+username+" password: "+password+"|USERS.length: "+USERS.length+"|";
   while (i < USERS.length) {
     const value = USERS[i]
     if (value.username === username) {
