@@ -46,15 +46,19 @@ exports.handler = async function (event, context) {
       }
       else {
         i++
-      }
-     
+      } 
     
     }
+    json_msg = '{log="'+log+'"}'
+    console.log('keluar loop')
     if (i == USERS.length) {
       log += "i == USERS.length|";
       //console.log(login_ok)
       json_msg = '{ result: "Not Ok", message: "Incorrect username or password", log="' + log + '" }';
       //res.status(200).json({ result: "Not Ok", message: "Incorrect username or password" });
+    }
+    else{
+      console.log('masuk sini')
     }
 
   return {
