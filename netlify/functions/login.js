@@ -18,7 +18,7 @@ exports.handler = async function (event, context) {
       log += USERS[i].username+ "|<"+JSON.parse(event.body).username+">|"+user+"|"
       
       
-      if (USERS[i].username == username) {
+      if (USERS[i].username == user) {
         log += "username " + user + " found|"
         /*
         bcryptjs.compare(pass, value.password, (err, valid) => {
