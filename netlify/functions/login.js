@@ -9,13 +9,13 @@ exports.handler = function (event, context) {
   let json_msg = "";
   let i = 0
   var breakloop = false
-  let log = event.body + "|" + KEY_TOKEN + "|"//JSON.stringify(body)+"|";
+  let log = event.body + "|" //JSON.stringify(body)+"|";
   log += "username: " + user + " password: " + password + "|USERS.length: " + USERS.length + "|"
   
    // json_msg = '{log="'+log+'"}'
 
     while (i < USERS.length && !breakloop) {
-      log += USERS[i].username+ "|<"+JSON.parse(event.body).username+">|"
+      log += USERS[i].username+ "|<"+JSON.parse(event.body).username+">|"+user+"|"
       
       /*
       if (USERS[i].username == username) {
