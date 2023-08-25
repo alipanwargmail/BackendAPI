@@ -36,7 +36,7 @@ exports.handler = async function (event, context) {
         const body = event.body;
         const ptoken = jwt.sign({ user: body }, "KEY_TOKEN");
         //json_msg = '{ result: "OK", message: "Login OK" }'
-        json_msg = '{ result: "OK", message: "Login OK", user_id: value.id, username: value.username, role_user: value.role_user, email: value.email, token: '+ptoken+', log="'+log+'" }';
+        json_msg = { result: "OK", message: "Login OK", user_id: value.id, username: value.username, role_user: value.role_user, email: value.email, token: ptoken, plog:log };
         //res.status(200).json({ result: "OK", message: "Login OK", user_id: value.id, username: value.username, role_user: value.role_user, email: value.email, token: ptoken });
       } else {
         json_msg = '{ result: "Not Ok", message: "Incorrect username or password", log="' + log + '" }';
