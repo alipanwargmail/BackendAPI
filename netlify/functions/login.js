@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs')
+const bcryptjs = require('bcryptjs')
 var USERS = require('../../arrayusers.js')
 
 exports.handler = async function (event, context) {
@@ -15,7 +15,7 @@ exports.handler = async function (event, context) {
     const value = USERS[i]
     if (value.username === username) {
       log += "username "+username+" found|";
-      bcrypt.compare(password, value.password, (err, valid) => {
+      bcryptjs.compare(password, value.password, (err, valid) => {
         if (err) {
           log += "Error on password validation|";
           json_msg = '{ result: "Not Ok", message: "Error on password validation", log="'+log+'"}';
