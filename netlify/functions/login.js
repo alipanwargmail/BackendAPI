@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const bcryptjs = require('bcryptjs')
 var USERS = require('../../arrayusers.js')
 
-exports.handler = function (event, context) {
+exports.handler = async function (event, context) {
   
   let user = JSON.parse(event.body).username
   let password = JSON.parse(event.body).password
