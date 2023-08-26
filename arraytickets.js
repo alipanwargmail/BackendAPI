@@ -1,4 +1,4 @@
-var global.TICKETS = [
+var TICKETS = [
     {
         "id": "1",
         "user_id": "23",
