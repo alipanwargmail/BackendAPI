@@ -1,4 +1,4 @@
-var USERS = require('../../arrayusers.js')
+USERS = require('../../arrayusers.js')
 
 exports.handler = async function (event, context) {
 

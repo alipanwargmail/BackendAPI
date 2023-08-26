@@ -1,4 +1,4 @@
-var USERS = [
+USERS = [
     {
         "id": "7",
         "username": "anwar",
