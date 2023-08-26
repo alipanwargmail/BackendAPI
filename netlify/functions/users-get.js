@@ -21,7 +21,7 @@ exports.handler = async function (event, context) {
     let i = 0
     while (i < USERS.length) {
       const value = USERS[i]
-      if (value.id == req.params.id) {
+      if (value.id == paramid) {
 
         retval = value;
         //res.status(200).json(value);
