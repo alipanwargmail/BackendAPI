@@ -23,7 +23,7 @@ let json_msg = ""
     let deleted = false;
     while (i < USERS.length) {
       const value = USERS[i]
-      if (value.id == req.params.id) {
+      if (value.id == paramid) {
         USERS.splice(i, 1)
         deleted = true
         json_msg = '{ result: "OK", message: "User deleted with ID: "' + value.id + '"}'
