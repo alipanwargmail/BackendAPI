@@ -1,4 +1,4 @@
-var USERS = [
+var global.USERS = [
     {
         "id": "7",
         "username": "anwar",
@@ -81,4 +81,4 @@ var USERS = [
     }
 ];
 
-module.exports = USERS
+module.exports = global.USERS

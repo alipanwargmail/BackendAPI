@@ -23,11 +23,11 @@ exports.handler = async function (event, context) {
     let i = 0
     var breakloop = false
     let log = event.body + "|" //JSON.stringify(body)+"|";
-    log += "username: " + user + " password: " + pass + "|USERS.length: " + USERS.length + "|"
+    log += "username: " + user + " password: " + pass + "|global.USERS.length: " + global.USERS.length + "|"
 
     // json_msg = '{log="'+log+'"}'
 
-    while (i < USERS.length && !breakloop) {
+    while (i < global.USERS.length && !breakloop) {
       let value = USERS[i]
       log += USERS[i].username + "|<" + JSON.parse(event.body).username + ">|" + user + "|"
       console.log(USERS[i].username + "|<" + JSON.parse(event.body).username + ">|" + user + "|")
@@ -67,8 +67,8 @@ exports.handler = async function (event, context) {
     }
     //json_msg = '{log="'+log+'"}'
     console.log('keluar loop')
-    if (i == USERS.length) {
-      log += "i == USERS.length|";
+    if (i == global.USERS.length) {
+      log += "i == global.USERS.length|";
       //console.log(login_ok)
       json_msg = '{ result: "Not Ok", message: "Incorrect username or password", log="' + log + '" }';
       //res.status(200).json({ result: "Not Ok", message: "Incorrect username or password" });

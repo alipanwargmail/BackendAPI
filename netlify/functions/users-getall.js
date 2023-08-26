@@ -1,4 +1,4 @@
-var USERS = require('../../arrayusers.js')
+var global.USERS = require('../../arrayusers.js')
 
 exports.handler = async function (event, context) {
 
@@ -24,7 +24,7 @@ exports.handler = async function (event, context) {
             "Content-Type" : "application/json",
 
           },                        
-          body: JSON.stringify(USERS),
+          body: JSON.stringify(global.USERS),
       };
     }
 }
