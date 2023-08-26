@@ -25,6 +25,7 @@ let json_msg = ""
       const value = USERS[i]
       if (value.id == paramid) {
         USERS.splice(i, 1)
+        console.log("index: "+i+" USERS.length: "+USERS.length)
         deleted = true
         json_msg = '{ result: "OK", message: "User deleted with ID: "' + value.id + '"}'
         //res.status(200).json({ result: "OK", message: "User deleted with ID: " + value.id })
