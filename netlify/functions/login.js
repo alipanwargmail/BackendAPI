@@ -19,6 +19,8 @@ exports.handler = async function (event, context) {
     console.log(event.httpMethod)
     let user = JSON.parse(event.body).username
     let pass = JSON.parse(event.body).password
+    console.log(user)
+    console.log(pass)
     let json_msg = "";
     const client = await pg.connect()
     try {
@@ -30,6 +32,7 @@ exports.handler = async function (event, context) {
           //return res.status(401).json({ result: "ERR", message: "Unauthorized" });
         }
         else {
+          console.log(result.rowCount)
           if (result.rowCount > 0) {
             bcryptjs.compare(pass, result.rows[0].password, (err, valid) => {
               if (err) {
