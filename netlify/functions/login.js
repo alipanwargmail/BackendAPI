@@ -22,7 +22,8 @@ exports.handler = async function (event, context) {
     let json_msg = "";
     const client = await pg.connect()
     try {
-      client.query('select id, "username", "password", "role_user", "email" from "users" where "username"=$1', [username], (err, result) => {
+      client.query('select id, "username", "password", "role_user", "email" from "users" where "username"=$1', 
+      [user], (err, result) => {
         if (err) {
           status = 401;
           json_msg = { result: "ERR", message: "Unauthorized" }
@@ -30,14 +31,14 @@ exports.handler = async function (event, context) {
         }
         else {
           if (result.rowCount > 0) {
-            bcryptjs.compare(password, result.rows[0].password, (err, valid) => {
+            bcryptjs.compare(pass, result.rows[0].password, (err, valid) => {
               if (err) {
                 console.log("Error on password validation");
                 json_msg = '{ result: "Not Ok", message: "Error on password validation" }'
                 //return res.status(200).json({ result: "Not Ok", message: "Error on password validation" });
               }
               if (valid) {
-                console.log('User [' + req.body.username + '] has logged in.');
+                console.log('User [' + user + '] has logged in.');
                 const body = req.body;
                 const ptoken = jwt.sign({ user: body }, "TOP_SECRET");
                 client.release()
