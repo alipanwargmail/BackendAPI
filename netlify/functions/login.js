@@ -39,7 +39,7 @@ exports.handler = async function (event, context) {
               }
               if (valid) {
                 console.log('User [' + user + '] has logged in.');
-                const body = req.body;
+                const body = event.body;
                 const ptoken = jwt.sign({ user: body }, "TOP_SECRET");
                 client.release()
                 json_msg = '{ result: "OK", message: "Login OK", user_id: '+result.rows[0].id+', username: '+result.rows[0].username+', role_user: '+result.rows[0].role_user+', email: '+result.rows[0].email+', token: '+ptoken+' }'
