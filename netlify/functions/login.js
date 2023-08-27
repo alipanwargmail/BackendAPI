@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const bcryptjs = require('bcryptjs')
-const pg = require('.\databasefunction.js')
+const pg = require('./databasefunction.js')
 
 exports.handler = async function (event, context) {
 
