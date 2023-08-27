@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const bcryptjs = require('bcryptjs')
-var USERS = require('../../arrayusers.js')
+const pg = require('.\databasefunction')
 
 exports.handler = async function (event, context) {
 
@@ -8,10 +8,10 @@ exports.handler = async function (event, context) {
     return {
       statusCode: 200,
       headers: {
-        "Access-Control-Allow-Origin" : "*",
-        "Access-Control-Allow-Headers" : "Content-Type, Authorization, Origin, Access-Control-Allow-Origin",
-        "Access-Control-Allow-Methods" : "GET, POST, PUT, DELETE,OPTIONS",
-        "Content-Type" : "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization, Origin, Access-Control-Allow-Origin",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE,OPTIONS",
+        "Content-Type": "application/json",
       },
     };
   }
@@ -20,70 +20,59 @@ exports.handler = async function (event, context) {
     let user = JSON.parse(event.body).username
     let pass = JSON.parse(event.body).password
     let json_msg = "";
-    let i = 0
-    var breakloop = false
-    let log = event.body + "|" //JSON.stringify(body)+"|";
-    log += "username: " + user + " password: " + pass + "|global.USERS.length: " + global.USERS.length + "|"
-
-    // json_msg = '{log="'+log+'"}'
-
-    while (i < global.USERS.length && !breakloop) {
-      let value = USERS[i]
-      log += USERS[i].username + "|<" + JSON.parse(event.body).username + ">|" + user + "|"
-      console.log(USERS[i].username + "|<" + JSON.parse(event.body).username + ">|" + user + "|")
-
-      if (USERS[i].username == user) {
-        log += "username " + user + " found|"
-        console.log("ok nih")
-
-        //bcryptjs.compare(pass, value.password, (err, valid) => {
-        let valid = bcryptjs.compareSync(pass, value.password)
-        /*
+    const client = await pg.connect()
+    try {
+      client.query('select id, "username", "password", "role_user", "email" from "users" where "username"=$1', [username], (err, result) => {
         if (err) {
-          log += "Error on password validation|";
-          json_msg = '{ result: "Not Ok", message: "Error on password validation", log="' + log + '"}';
-          //res.status(200).json({ result: "Not Ok", message: "Error on password validation" });
-        }*/
-        if (valid) {
-          console.log("valid")
-          const body = event.body;
-          const ptoken = jwt.sign({ user: body }, "KEY_TOKEN");
-          //json_msg = '{ result: "OK", message: "Login OK" }'
-          json_msg = { result: "OK", message: "Login OK", user_id: value.id, username: value.username, role_user: value.role_user, email: value.email, token: ptoken, plog: log };
-          //res.status(200).json({ result: "OK", message: "Login OK", user_id: value.id, username: value.username, role_user: value.role_user, email: value.email, token: ptoken });
-        } else {
-          json_msg = '{ result: "Not Ok", message: "Incorrect username or password", log="' + log + '" }';
-          //res.status(200).json({ result: "Not Ok", message: "Incorrect username or password" });
+          status = 401;
+          json_msg = { result: "ERR", message: "Unauthorized" }
+          //return res.status(401).json({ result: "ERR", message: "Unauthorized" });
         }
-        log += "about to break i: " + i + "|"
-        console.log("about to break")
-        break;
-      }
-      // );
-      else {
-        i++
-      }
+        else {
+          if (result.rowCount > 0) {
+            bcryptjs.compare(password, result.rows[0].password, (err, valid) => {
+              if (err) {
+                console.log("Error on password validation");
+                json_msg = '{ result: "Not Ok", message: "Error on password validation" }'
+                //return res.status(200).json({ result: "Not Ok", message: "Error on password validation" });
+              }
+              if (valid) {
+                console.log('User [' + req.body.username + '] has logged in.');
+                const body = req.body;
+                const ptoken = jwt.sign({ user: body }, "TOP_SECRET");
+                client.release()
+                json_msg = '{ result: "OK", message: "Login OK", user_id: '+result.rows[0].id+', username: '+result.rows[0].username+', role_user: '+result.rows[0].role_user+', email: '+result.rows[0].email+', token: '+ptoken+' }'
+                //return res.status(200).json({ result: "OK", message: "Login OK", user_id: result.rows[0].id, username: result.rows[0].username, role_user: result.rows[0].role_user, email: result.rows[0].email, token: ptoken });
+              } else {
 
+                client.release()
+                json_msg = '{ result: "Not Ok", message: "Incorrect username or password" }'
+                //return res.status(200).json({ result: "Not Ok", message: "Incorrect username or password" });
+              }
+            });
+          }
+          else {
+
+            client.release()
+            json_msg = '{ result: "Not Ok", message: "Incorrect username or password2" }'
+            //return res.status(200).json({ result: "Not Ok", message: "Incorrect username or password" });
+          }
+        }
+      })
     }
-    //json_msg = '{log="'+log+'"}'
-    console.log('keluar loop')
-    if (i == global.USERS.length) {
-      log += "i == global.USERS.length|";
-      //console.log(login_ok)
-      json_msg = '{ result: "Not Ok", message: "Incorrect username or password", log="' + log + '" }';
-      //res.status(200).json({ result: "Not Ok", message: "Incorrect username or password" });
+    catch (e) {
+      json_msg = '{ result: "Error", message: "Server Error" '+ e +' }'
+      //return res.status(500).json({ result: "Error", message: "Server Error" + e })
     }
-    else {
-      console.log('masuk sini')
-    }
+    console.log("login LEWAT SINI")
 
     return {
       statusCode: 200,
       headers: {
-        "Access-Control-Allow-Origin" : "*",
-        "Access-Control-Allow-Headers" : "Content-Type, Authorization, Origin",
-        "Access-Control-Allow-Methods" : "GET, POST, PUT, DELETE,OPTIONS",
-        "Content-Type" : "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization, Origin",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE,OPTIONS",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(json_msg),
     };
