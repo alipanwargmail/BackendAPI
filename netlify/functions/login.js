@@ -26,7 +26,8 @@ exports.handler = async function (event, context) {
     try {
       client.query('select id, "username", "password", "role_user", "email" from "users" where "username"=$1',
         [user], (err, result) => {
-          if (err) {
+          if (err) {]
+            console.log("err query")
             status = 401;
             json_msg = { result: "ERR", message: "Unauthorized" }
             //return res.status(401).json({ result: "ERR", message: "Unauthorized" });
@@ -58,6 +59,7 @@ exports.handler = async function (event, context) {
             }
           }
         })
+        console.log("BLAH BLAH")
     }
     catch (e) {
       json_msg = '{ result: "Error", message: "Server Error" ' + e + ' }'
