@@ -31,7 +31,7 @@ exports.handler = async function (event, context) {
       const result = await db.query('select id, "username", "password", "role_user", "email" from "users" where "username"=$1', [user])
       console.log(result)
       json_msg = result
-      console.log(result.rowCount)
+      console.log(JSON.parse(result).rowCount)
       if (result.rowCount > 0) {
         console.log(result.rows[0].password)
         const valid = bcryptjs.compareSync(pass, result.rows[0].password)
