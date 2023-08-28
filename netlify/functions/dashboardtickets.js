@@ -14,6 +14,7 @@ exports.handler = async function (event, context) {
     };
   }
   else {
+    /*
     let i = 0;
 
     let summary = new Map()
@@ -41,7 +42,7 @@ exports.handler = async function (event, context) {
       }
       retval.push(item)
     }
-
+*/
     return {
       statusCode: 200,
       headers: {

@@ -14,6 +14,25 @@ exports.handler = async function (event, context) {
     };
   }
   else {
+    console.log(event.httpMethod)
+    console.log(process.env.DB_URL)
+    let json_msg = "";
+    let paramid = event.queryStringParameters.id;
+    try {
+      const result = await db.query('select * from users where id=$1', [paramid])
+      console.log(result)
+      if (result.length > 0)
+        json_msg = result[0];
+      else
+        json_msg = {}
+
+
+
+    }
+    catch (e) {
+      json_msg = '{ result: "Error", message: "Server Error" ' + e + ' }'
+    }
+    /*
     let paramid = event.queryStringParameters.id;
     console.log(event.queryStringParameters)
     console.log(paramid)
@@ -35,6 +54,7 @@ exports.handler = async function (event, context) {
       //return res.status(200).json("");
       retval = "";
     }
+    */
     return {
       statusCode: 200,
       headers: {
@@ -44,7 +64,7 @@ exports.handler = async function (event, context) {
         "Content-Type": "application/json",
 
       },
-      body: JSON.stringify(retval),
+      body: JSON.stringify(json_msg),
     };
   }
 }
