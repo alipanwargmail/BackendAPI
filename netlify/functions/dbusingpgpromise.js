@@ -13,7 +13,7 @@ const initOptions = {
 };
 const pgp = require('pg-promise')(initOptions)
 const db = pgp(
-    "postgres://ixiihrnc:HP06So35UiQcqRXFXVlUZ6Us8NNZC5gH@floppy.db.elephantsql.com:5432/ixiihrnc"
+    process.env.DB_URL
 )
 
 module.exports = db

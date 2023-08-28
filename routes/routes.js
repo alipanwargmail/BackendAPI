@@ -5,7 +5,6 @@ const pool = require('../database.js')
 var nodemailer = require('nodemailer')
 var USERS = require('../arrayusers.js')
 var TICKETS = require('../arraytickets.js')
-const client = require('../mongo.js')
 const router = express.Router();
 const KEY_TOKEN = process.env.SECRETTOKEN
 const USE_DB = process.env.USEDB;
@@ -48,26 +47,6 @@ router.get('/testmail', function (request, res) {
     }
   });
 
-});
-
-router.get('/cekmongo', async function (request, res) {
-
-  try {
-    await client.connect()
-    console.log("connected")
-    const users = client.db("isupport-mongodb").collection("users");
-    await users.find({},  function(err, result){
-      if(err) throw err;
-      console.log(result);
-    }
-    ).cou
-  
-  }
-  catch (e) {
-    console.log(e)
-  }
-  
-  res.status(200).json({result: "OK", message: "Pinged your deployment. You successfully connected to MongoDB!"})
 });
 
 router.get('/cekdb', async function (request, res) {
