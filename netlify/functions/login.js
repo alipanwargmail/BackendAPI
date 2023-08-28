@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcryptjs = require('bcryptjs')
 const pg = require('./databasefunction.js')
-const pgp = require('./dbusingpgpromise.js')
+const db = require('./dbusingpgpromise.js')
 
 exports.handler = async function (event, context) {
 
@@ -27,7 +27,7 @@ exports.handler = async function (event, context) {
     //const client = await pg.connect()
     try {
       
-      const result = await pgp.query('select id, "username", "password", "role_user", "email" from "users" where "username"=$1',[user])
+      const result = await db.query('select id, "username", "password", "role_user", "email" from "users" where "username"=$1',[user])
       console.log(result)
       json_msg = result
       /*
