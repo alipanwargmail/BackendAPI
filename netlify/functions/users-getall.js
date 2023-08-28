@@ -1,4 +1,4 @@
-USERS = require('../../arrayusers.js')
+const db = require('./dbusingpgpromise.js');
 
 exports.handler = async function (event, context) {
 
@@ -14,7 +14,17 @@ exports.handler = async function (event, context) {
     };
   }
   else {
-    console.log("USERS.length" + USERS.length)
+    console.log(event.httpMethod)
+    console.log(process.env.DB_URL)
+    let json_msg = "";
+    try {
+      const result = await db.query('select * from users')
+      console.log(result)
+      json_msg = result;
+    }
+    catch (e) {
+      json_msg = '{ result: "Error", message: "Server Error" ' + e + ' }'
+    }
     return {
       statusCode: 200,
       headers: {
@@ -24,7 +34,7 @@ exports.handler = async function (event, context) {
         "Content-Type": "application/json",
 
       },
-      body: JSON.stringify(USERS),
+      body: JSON.stringify(json_msg),
     };
   }
 }

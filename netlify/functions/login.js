@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 const bcryptjs = require('bcryptjs')
-const pg = require('./databasefunction.js')
 const db = require('./dbusingpgpromise.js');
 
 exports.handler = async function (event, context) {
@@ -18,7 +17,7 @@ exports.handler = async function (event, context) {
   }
   else {
     console.log(event.httpMethod)
-console.log(process.env.DB_URL)
+    console.log(process.env.DB_URL)
     let user = JSON.parse(event.body).username
     let pass = JSON.parse(event.body).password
     console.log(user)
@@ -41,7 +40,7 @@ console.log(process.env.DB_URL)
           json_msg = '{ result: "OK", message: "Login OK", user_id: ' + result[0].id + ', username: ' + result[0].username + ', role_user: ' + result[0].role_user + ', email: ' + result[0].email + ', token: ' + ptoken + ' }'
           //return res.status(200).json({ result: "OK", message: "Login OK", user_id: result[0].id, username: result[0].username, role_user: result[0].role_user, email: result[0].email, token: ptoken });
         } else {
-console.log("compareSync return false")
+          console.log("compareSync return false")
           json_msg = '{ result: "Not Ok", message: "Incorrect username or password" }'
           //return res.status(200).json({ result: "Not Ok", message: "Incorrect username or password" });
         }
