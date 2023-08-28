@@ -1,7 +1,7 @@
 const db = require('./dbusingpgpromise.js');
 
 exports.handler = async function (event, context) {
-
+  let json_msg = {}
   if (event.httpMethod == 'OPTIONS') {
     return {
       statusCode: 200,
@@ -16,7 +16,7 @@ exports.handler = async function (event, context) {
   else {
     console.log(event.httpMethod)
     console.log(process.env.DB_URL)
-    let json_msg = "";
+    
     try {
       const result = await db.query('select * from users')
       console.log(result)

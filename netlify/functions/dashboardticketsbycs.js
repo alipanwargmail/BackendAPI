@@ -1,6 +1,6 @@
 const db = require('./dbusingpgpromise.js')
 exports.handler = async function (event, context) {
-
+  let json_msg = new Object();
   if (event.httpMethod == 'OPTIONS') {
     return {
       statusCode: 200,
@@ -15,14 +15,23 @@ exports.handler = async function (event, context) {
   else {
     console.log(event.httpMethod)
     console.log(process.env.DB_URL)
-    let json_msg = "";
     try {
       const result = await db.query('select handler_username argument, count(*) value from tickets group by handler_username')
       console.log(result)
-      json_msg = result;
+      if (result.length > 0) {
+        json_msg = result;
+      }
+      else {
+        item = new Object();
+        item.argument = "Argument"
+        item.value = 0;
+        json_msg.push(item)
+      }
     }
     catch (e) {
-      json_msg = '{ result: "Error", message: "Server Error" ' + e + ' }'
+      json_msg.result = "Error"
+      json_msg.message = "Server Error "+e
+      //json_msg = '{ result: "Error", message: "Server Error" ' + e + ' }'
     }
     /*
     let i = 0;

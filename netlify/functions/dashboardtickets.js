@@ -6,21 +6,29 @@ exports.handler = async function (event, context) {
     return {
       statusCode: 200,
       headers: {
-        "Access-Control-Allow-Origin" : "*",
-        "Access-Control-Allow-Headers" : "Content-Type, Authorization, Origin, Access-Control-Allow-Origin",
-        "Access-Control-Allow-Methods" : "GET",
-        "Content-Type" : "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization, Origin, Access-Control-Allow-Origin",
+        "Access-Control-Allow-Methods": "GET",
+        "Content-Type": "application/json",
       },
     };
   }
   else {
     console.log(event.httpMethod)
     console.log(process.env.DB_URL)
-    let json_msg = "";
+    let json_msg = new Object();
     try {
       const result = await db.query('select status argument, count(*) value from tickets group by status')
       console.log(result)
-      json_msg = result;
+      if (result.length > 0) {
+        json_msg = result;
+      }
+      else {
+        item = new Object();
+        item.argument = "Argument"
+        item.value = 0;
+        json_msg.push(item)
+      }
     }
     catch (e) {
       json_msg = '{ result: "Error", message: "Server Error" ' + e + ' }'
@@ -57,10 +65,10 @@ exports.handler = async function (event, context) {
     return {
       statusCode: 200,
       headers: {
-        "Access-Control-Allow-Origin" : "*",
-        "Access-Control-Allow-Headers" : "Content-Type, Authorization, Origin",
-        "Access-Control-Allow-Methods" : "GET, POST, PUT, DELETE,OPTIONS",
-        "Content-Type" : "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization, Origin",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE,OPTIONS",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(json_msg),
     };
