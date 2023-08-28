@@ -1,4 +1,4 @@
-var USERS = require('../../arrayusers.js')
+const db = require('./dbusingpgpromise.js')
 
 exports.handler = async function (event, context) {
 
