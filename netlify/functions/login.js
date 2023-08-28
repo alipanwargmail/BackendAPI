@@ -33,14 +33,14 @@ exports.handler = async function (event, context) {
       json_msg = result
       console.log(result.length)
       if (result.length > 0) {
-        console.log(result.rows[0].password)
-        const valid = bcryptjs.compareSync(pass, result.rows[0].password)
+        console.log(result[0].password)
+        const valid = bcryptjs.compareSync(pass, result[0].password)
         if (valid) {
           console.log('User [' + user + '] has logged in.');
           const body = event.body;
           const ptoken = jwt.sign({ user: body }, "TOP_SECRET");
-          json_msg = '{ result: "OK", message: "Login OK", user_id: ' + result.rows[0].id + ', username: ' + result.rows[0].username + ', role_user: ' + result.rows[0].role_user + ', email: ' + result.rows[0].email + ', token: ' + ptoken + ' }'
-          //return res.status(200).json({ result: "OK", message: "Login OK", user_id: result.rows[0].id, username: result.rows[0].username, role_user: result.rows[0].role_user, email: result.rows[0].email, token: ptoken });
+          json_msg = '{ result: "OK", message: "Login OK", user_id: ' + result[0].id + ', username: ' + result[0].username + ', role_user: ' + result[0].role_user + ', email: ' + result[0].email + ', token: ' + ptoken + ' }'
+          //return res.status(200).json({ result: "OK", message: "Login OK", user_id: result[0].id, username: result[0].username, role_user: result[0].role_user, email: result[0].email, token: ptoken });
         } else {
 console.log("compareSync return false")
           json_msg = '{ result: "Not Ok", message: "Incorrect username or password" }'
