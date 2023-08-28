@@ -26,7 +26,7 @@ exports.handler = async function (event, context) {
     let json_msg = "";
     //const client = await pg.connect()
     try {
-      const result = pgp.query('select id, "username", "password", "role_user", "email" from "users" where "username"=$1',[user])
+      const result = await pgp.query('select id, "username", "password", "role_user", "email" from "users" where "username"=$1',[user])
       console.log(result)
       json_msg = result
       /*
