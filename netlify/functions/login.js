@@ -4,6 +4,7 @@ const db = require('./dbusingpgpromise.js');
 
 exports.handler = async function (event, context) {
 
+  console.log(event.httpMethod)
   if (event.httpMethod == 'OPTIONS') {
     return {
       statusCode: 200,
@@ -16,7 +17,7 @@ exports.handler = async function (event, context) {
     };
   }
   else if(event.httpMethod == 'POST'){
-    console.log(event.httpMethod)
+    
     console.log(process.env.DB_URL)
     let user = JSON.parse(event.body).username
     let pass = JSON.parse(event.body).password
