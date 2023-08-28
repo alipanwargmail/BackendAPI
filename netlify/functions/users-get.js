@@ -2,6 +2,7 @@ const db = require('./dbusingpgpromise.js')
 
 exports.handler = async function (event, context) {
 
+  let json_msg = "{}"
   if (event.httpMethod == 'OPTIONS') {
     return {
       statusCode: 200,
@@ -16,7 +17,7 @@ exports.handler = async function (event, context) {
   else {
     console.log(event.httpMethod)
     console.log(process.env.DB_URL)
-    let json_msg = "";
+    
     let paramid = event.queryStringParameters.id;
     console.log("param id: "+paramid)
     try {
@@ -28,7 +29,9 @@ exports.handler = async function (event, context) {
         json_msg = {}
     }
     catch (e) {
-      json_msg = '{ result: "Error", message: "Server Error" ' + e + ' }'
+      json_msg.result = "Error"
+      json_msg.message = "Server Error "+e
+      //json_msg = '{ result: "Error", message: "Server Error" ' + e + ' }'
     }
     /*
     let paramid = event.queryStringParameters.id;

@@ -20,10 +20,7 @@ exports.handler = async function (event, context) {
     try {
       const result = await db.query('select status argument, count(*) value from tickets group by status')
       console.log(result)
-      if (result.length > 0)
-        json_msg = result[0];
-      else
-        json_msg = {}
+      json_msg = result;
     }
     catch (e) {
       json_msg = '{ result: "Error", message: "Server Error" ' + e + ' }'
