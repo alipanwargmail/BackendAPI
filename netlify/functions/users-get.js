@@ -18,6 +18,7 @@ exports.handler = async function (event, context) {
     console.log(process.env.DB_URL)
     let json_msg = "";
     let paramid = event.queryStringParameters.id;
+    console.log("param id: "+paramid)
     try {
       const result = await db.query('select * from users where id=$1', [paramid])
       console.log(result)
@@ -25,9 +26,6 @@ exports.handler = async function (event, context) {
         json_msg = result[0];
       else
         json_msg = {}
-
-
-
     }
     catch (e) {
       json_msg = '{ result: "Error", message: "Server Error" ' + e + ' }'

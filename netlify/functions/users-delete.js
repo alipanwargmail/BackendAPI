@@ -1,5 +1,5 @@
-USERS = require('../../arrayusers.js')
-
+//USERS = require('../../arrayusers.js')
+const db = require('./dbusingpgpromise.js')
 exports.handler = async function (event, context) {
 
   if (event.httpMethod == 'OPTIONS') {
@@ -14,6 +14,20 @@ exports.handler = async function (event, context) {
     };
   }
   else {
+    console.log(event.httpMethod)
+    console.log(process.env.DB_URL)
+    let json_msg = "";
+    let paramid = event.queryStringParameters.id;
+    console.log("param id: "+paramid)
+    try {
+      const result = await db.query('delete from users where id=$1', [paramid])
+      console.log(result)
+      json_msg = '{ result: "OK", message: "User deleted with ID: "' + paramid + '"}';
+    }
+    catch (e) {
+      json_msg = '{ result: "Error", message: "Server Error" ' + e + ' }'
+    }    
+    /*
     let paramid = event.queryStringParameters.id;
     console.log(event.queryStringParameters)
     console.log(paramid)
@@ -40,6 +54,7 @@ let json_msg = ""
       json_msg = '{ result: "Err", message: "User with ID: ' + req.params.id +' Not Found" }'
       //return res.status(200).json({ result: "Err", message: "User with ID: " + req.params.id + " Not Found" })
     }
+    */
     return {
       statusCode: 200,
       headers: {
