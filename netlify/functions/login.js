@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 const bcryptjs = require('bcryptjs')
 const pg = require('./databasefunction.js')
 const db = require('./dbusingpgpromise.js');
-const { compareSync } = require('bcrypt');
 
 exports.handler = async function (event, context) {
 
@@ -19,7 +18,7 @@ exports.handler = async function (event, context) {
   }
   else {
     console.log(event.httpMethod)
-
+console.log(process.env.DB_URL)
     let user = JSON.parse(event.body).username
     let pass = JSON.parse(event.body).password
     console.log(user)
