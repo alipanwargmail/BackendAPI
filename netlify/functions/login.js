@@ -5,6 +5,7 @@ const db = require('./dbusingpgpromise.js');
 exports.handler = async function (event, context) {
 
   console.log(event.httpMethod)
+  console.log(event.headers)
   if (event.httpMethod == 'OPTIONS') {
     return {
       statusCode: 200,
