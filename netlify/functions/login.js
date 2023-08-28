@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcryptjs = require('bcryptjs')
 const pg = require('./databasefunction.js')
+const pgp = require('./dbusingpgpromise.js')
 
 exports.handler = async function (event, context) {
 
@@ -17,13 +18,18 @@ exports.handler = async function (event, context) {
   }
   else {
     console.log(event.httpMethod)
+    
     let user = JSON.parse(event.body).username
     let pass = JSON.parse(event.body).password
     console.log(user)
     console.log(pass)
     let json_msg = "";
-    const client = await pg.connect()
+    //const client = await pg.connect()
     try {
+      const result = pgp.query('select id, "username", "password", "role_user", "email" from "users" where "username"=$1',[user])
+      console.log(result)
+      json_msg = result
+      /*
       client.query('select id, "username", "password", "role_user", "email" from "users" where "username"=$1',
         [user], (err, result) => {
           if (err) {
@@ -59,6 +65,7 @@ exports.handler = async function (event, context) {
             }
           }
         })
+        */
         console.log("BLAH BLAH")
     }
     catch (e) {
