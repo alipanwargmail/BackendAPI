@@ -86,12 +86,12 @@ exports.handler = async function (event, context, callback) {
       })
       console.log('Email for agent sent: ' + info2.response);
       callback(null, { statusCode: 200, body: JSON.stringify(info) });
-      
+
       var to = lphone_no
       const type = "text"
       var text = 'Your ticket has been created with ID: '+results2[0].id+' and handle by ' + handler_username
       const useTyping = "true"
-      await axios.post(process.env.WA_URL, {to, type, text, useTyping}, {
+      axios.post(process.env.WA_URL, {to, type, text, useTyping}, {
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
@@ -108,7 +108,7 @@ exports.handler = async function (event, context, callback) {
       "Deskripsi: " + ldeskripsi + "\n" +
       "Priority: " + lpriority + "\n" +
       "Created at: " + results2[0].created_at
-      await axios.post(process.env.WA_URL, {to, type, text, useTyping}, {
+      axios.post(process.env.WA_URL, {to, type, text, useTyping}, {
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
