@@ -35,6 +35,6 @@ exports.handler = async function (event, context, callback) {
       "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE,OPTIONS",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(info),
+    body: JSON.stringify(json_msg),
   };
 };
