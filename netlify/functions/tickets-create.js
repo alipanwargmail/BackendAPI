@@ -29,12 +29,12 @@ exports.handler = async function (event, context) {
     console.log(lemail)
     try {
       console.log("find agent===============")
-      const result = await db.query("select a.id,a.username,a.email,count(*) from users a left join tickets b \
+      const results = await db.query("select a.id,a.username,a.email,count(*) from users a left join tickets b \
       on a.id=b.handler_user_id and b.status <> 'DONE' \
       where a.role_user='AGENT'  \
       group by a.id,a.username,a.email \
       order by count(*)")
-      console.log(result)
+      console.log(results)
       const handler_user_id = results[0].id;
       const handler_username = results[0].username;
       const handler_email = results[0].email;
@@ -42,7 +42,7 @@ exports.handler = async function (event, context) {
       console.log(handler_username)
       console.log(handler_email)
 
-      json_msg = result;
+      json_msg = results;
     }
     catch (e) {
       json_msg.result = "Error"
