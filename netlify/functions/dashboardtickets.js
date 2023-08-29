@@ -18,7 +18,7 @@ exports.handler = async function (event, context) {
     console.log(process.env.DB_URL)
     let json_msg = new Object();
     try {
-      const result = await db.query('select status argument, count(*) value from tickets group by status')
+      const result = await db.query('select status argument, count(*) as value from tickets group by status')
       console.log(result)
       if (result.length > 0) {
         json_msg = result;
@@ -31,7 +31,9 @@ exports.handler = async function (event, context) {
       }
     }
     catch (e) {
-      json_msg = '{ result: "Error", message: "Server Error" ' + e + ' }'
+      json_msg.result = "Error"
+      json_msg.message = "Server Error "+e
+      //json_msg = '{ result: "Error", message: "Server Error" ' + e + ' }'
     }
     /*
     let i = 0;

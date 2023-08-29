@@ -16,7 +16,7 @@ exports.handler = async function (event, context) {
     console.log(event.httpMethod)
     console.log(process.env.DB_URL)
     try {
-      const result = await db.query('select handler_username argument, count(*) value from tickets group by handler_username')
+      const result = await db.query('select handler_username argument, count(*) as value from tickets group by handler_username')
       console.log(result)
       if (result.length > 0) {
         json_msg = result;
