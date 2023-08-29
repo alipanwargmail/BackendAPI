@@ -10,7 +10,7 @@ exports.handler = async function (event, context, callback) {
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Headers": "Content-Type, Authorization, Origin, Access-Control-Allow-Origin",
-        "Access-Control-Allow-Methods": "POST",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE,OPTIONS",
         "Content-Type": "application/json",
       },
     };
