@@ -72,7 +72,7 @@ exports.handler = async function (event, context, callback) {
       })      
       callback(null, { statusCode: 200, body: JSON.stringify(info) });
       console.log('Email for user sent: ' + info.response);
-      
+      /*
       var info2 = await transporter.sendMail({
         from: 'isupport-kelompok3',
         to: handler_email,
@@ -86,7 +86,7 @@ exports.handler = async function (event, context, callback) {
       })
       console.log('Email for agent sent: ' + info2.response);
       callback(null, { statusCode: 200, body: JSON.stringify(info) });
-
+      */
       var to = lphone_no
       const type = "text"
       var text = 'Your ticket has been created with ID: '+results2[0].id+' and handle by ' + handler_username
@@ -100,7 +100,7 @@ exports.handler = async function (event, context, callback) {
       })
       //console.log(info3);
       callback(null, { statusCode: 200, body: JSON.stringify({}) })
-      
+      /*
       to = handler_phone_no
       text = "Your ticket has been opened with ID: "+results2[0].id+" and dispatched to you (" + handler_username + ") with detail: \n" +
       "Requester: "+ lusername + "\n" +
@@ -116,7 +116,8 @@ exports.handler = async function (event, context, callback) {
         }
       })
       //console.log(info3);
-      callback(null, { statusCode: 200, body: JSON.stringify({}) })      
+      callback(null, { statusCode: 200, body: JSON.stringify({}) })   
+      */   
     }
     catch (error) {
       callback(error);
