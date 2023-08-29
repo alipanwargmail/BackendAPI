@@ -4,7 +4,7 @@ exports.handler = async function (event, context, callback) {
   let json_msg = {}
   let to = "6282115237855"
   let type = "text"
-  let text = "tes pake netlify"
+  let text = "tes pake netlify2"
   let useTyping = true
   try {
     var info = axios.post(process.env.WA_URL, {to, type, text, useTyping}, {
@@ -14,9 +14,9 @@ exports.handler = async function (event, context, callback) {
         'authorization': 'Bearer ' + process.env.WA_TOKEN
       }
     })
+    callback(null, { statusCode: 200, body: JSON.stringify(info) })
     console.log(info);
     json_msg = info
-    callback(null, { statusCode: 200, body: JSON.stringify(info) })
   }
   catch (e) {
     console.log("Exception "+e)
