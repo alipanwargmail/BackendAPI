@@ -14,9 +14,9 @@ exports.handler = async function (event, context, callback) {
         'authorization': 'Bearer ' + process.env.WA_TOKEN
       }
     })
-    callback(null, { statusCode: 200, body: JSON.stringify(info) })
     console.log(info);
-    json_msg = info
+    callback(null, { statusCode: 200, body: JSON.stringify({}) })
+    json_msg = "{}"
   }
   catch (e) {
     console.log("Exception "+e)
