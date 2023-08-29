@@ -7,25 +7,22 @@ exports.handler = async function (event, context, callback) {
   let text = "tes pake netlify3"
   let useTyping = true
   try {
-    //var info = 
-    axios.post(process.env.WA_URL, {to, type, text, useTyping}, {
+    var info = axios.post(process.env.WA_URL, {to, type, text, useTyping}, {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
         'authorization': 'Bearer ' + process.env.WA_TOKEN
       }
-    }).then(response => json_msg = response)
-    /*
+    })
     callback(null, { statusCode: 200, body: JSON.stringify(info) })
     console.log(info);
     json_msg = info
-    */
   }
   catch (e) {
     console.log("Exception "+e)
     json_msg.result = "Error"
     json_msg.message = "Server Error "+e
-    //callback(e)
+    callback(e)
   }
   return {
     statusCode: 200,
