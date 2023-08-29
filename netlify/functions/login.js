@@ -6,7 +6,7 @@ exports.handler = async function (event, context) {
 
   console.log(event.httpMethod)
   console.log(event.headers)
-  let json_msg = new Object()
+  let json_msg = {}
   if (event.httpMethod == 'OPTIONS') {
     return {
       statusCode: 200,
@@ -28,7 +28,7 @@ exports.handler = async function (event, context) {
     //const client = await pg.connect()
     try {
 
-      const result = await db.query('select id, "username", "password", "role_user", "email" from "users" where "username"=$1', [user])
+      const result = await db.query('select id, "username", "password", "role_user", "email", "phone_no" from "users" where "username"=$1', [user])
       console.log(result)
       json_msg.result = result;
       //json_msg = result
@@ -46,6 +46,7 @@ exports.handler = async function (event, context) {
           json_msg.username = result[0].username
           json_msg.role_user = result[0].role_user
           json_msg.email = result[0].email
+          json_msg.phone_no = result[0].phone_no
           json_msg.token = ptoken
           //json_msg = '{ result: "OK", message: "Login OK", user_id: ' + result[0].id + ', username: ' + result[0].username + ', role_user: ' + result[0].role_user + ', email: ' + result[0].email + ', token: ' + ptoken + ' }'
           //return res.status(200).json({ result: "OK", message: "Login OK", user_id: result[0].id, username: result[0].username, role_user: result[0].role_user, email: result[0].email, token: ptoken });

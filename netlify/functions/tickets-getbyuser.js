@@ -1,35 +1,26 @@
 const db = require('./dbusingpgpromise.js');
-const bcryptjs = require('bcryptjs')
 
 exports.handler = async function (event, context) {
   console.log(event.httpMethod)
-  let json_msg = {};
+  let json_msg = {}
   if (event.httpMethod == 'OPTIONS') {
     return {
       statusCode: 200,
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Headers": "Content-Type, Authorization, Origin, Access-Control-Allow-Origin",
-        "Access-Control-Allow-Methods": "POST",
+        "Access-Control-Allow-Methods": "GET",
         "Content-Type": "application/json",
       },
     };
   }
   else {
-    let lusername = JSON.parse(event.body).username
-    let lemail = JSON.parse(event.body).email
-    let lpassword = JSON.parse(event.body).password
-    let lphone_no = JSON.parse(event.body).phone_no
-    let lrole_user = JSON.parse(event.body).role_user
-    console.log(lusername)
-    console.log(lemail)
-    console.log(lpassword)
-    console.log(lphone_no)
-    console.log(lrole_user)
+    
+    let paramid = event.queryStringParameters.id;
+    console.log("param id: "+paramid)
+    
     try {
-      const hash = bcryptjs.hashSync(lpassword, 10)
-      const result = await db.query('INSERT INTO users (username, email, password, phone_no, role_user, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) RETURNING *', 
-        [lusername, lemail, hash, lphone_no, lrole_user])
+      const result = await db.query('select * from tickets where user_id=$1', [paramid])
       console.log(result)
       json_msg = result;
     }
@@ -45,6 +36,7 @@ exports.handler = async function (event, context) {
         "Access-Control-Allow-Headers": "Content-Type, Authorization, Origin, Access-Control-Allow-Origin",
         "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE,OPTIONS",
         "Content-Type": "application/json",
+
       },
       body: JSON.stringify(json_msg),
     };
