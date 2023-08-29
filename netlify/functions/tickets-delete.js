@@ -18,10 +18,10 @@ exports.handler = async function (event, context) {
     let paramid = event.queryStringParameters.id;
     console.log("param id: "+paramid)
     try {
-      const result = await db.query('delete from users where id=$1', [paramid])
+      const result = await db.query('delete from tickets where id=$1', [paramid])
       console.log(result)
       json_msg.result = "OK"
-      json_msg.message = "User deleted with ID: "+paramid
+      json_msg.message = "Ticket deleted with ID: "+paramid
     }
     catch (e) {
       json_msg.result = "Error"

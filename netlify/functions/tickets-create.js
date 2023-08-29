@@ -17,7 +17,7 @@ exports.handler = async function (event, context) {
   }
   else {
     let luser_id = JSON.parse(event.body).user_id
-    let lusername = JSON.parse(event.body).username  
+    let lusername = JSON.parse(event.body).username
     let ltitle = JSON.parse(event.body).title
     let ldeskripsi = JSON.parse(event.body).deskripsi
     let lpriority = JSON.parse(event.body).priority
@@ -36,62 +36,54 @@ exports.handler = async function (event, context) {
       group by a.id,a.username,a.email \
       order by count(*)")
       console.log(results)
-      const handler_user_id = results[0].id;
-      const handler_username = results[0].username;
-      const handler_email = results[0].email;
+      var handler_user_id = results[0].id;
+      var handler_username = results[0].username;
+      var handler_email = results[0].email;
       console.log(handler_user_id)
       console.log(handler_username)
       console.log(handler_email)
-      const results2= await db.query("INSERT INTO tickets (user_id, username, email, title, deskripsi, priority, handler_user_id,handler_username, status, created_at, updated_at) VALUES ($1, $2, $3, $4, $5,$6,$7,$8, 'OPEN', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) RETURNING *",
-      [luser_id, lusername, lemail, ltitle, ldeskripsi, lpriority, handler_user_id, handler_username])      
+      var results2 = await db.query("INSERT INTO tickets (user_id, username, email, title, deskripsi, priority, handler_user_id,handler_username, status, created_at, updated_at) VALUES ($1, $2, $3, $4, $5,$6,$7,$8, 'OPEN', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) RETURNING *",
+        [luser_id, lusername, lemail, ltitle, ldeskripsi, lpriority, handler_user_id, handler_username])
       json_msg = results2;
+    }
+    catch (e) {
+      json_msg.result = "Error"
+      json_msg.message = "Server Error " + e
+      //json_msg = '{ result: "Error", message: "Server Error" ' + e + ' }'
+    }
+    try {
       var transporter = nodemailer.createTransport({
-        service: 'gmail',
+        service: process.env.EMAIL_SERVICE,
         auth: {
-          user: 'ikeltiga@gmail.com',
+          user: process.env.EMAIL_USER,
           //pass: 'Isupportkelompok32'
-          pass: 'ewxsofcnulplgjhn'
+          pass: process.env.EMAIL_PASS
         }
       });
-      var usermail = {
+      var info = await transporter.sendMail({
         from: 'isupport-kelompok3',
         to: lemail,
         subject: 'New ticket created with ID: ' + results2[0].id,
         text: 'Your ticket has been created and handle by ' + handler_username
-      }
-      transporter.sendMail(usermail, function (error, info) {
-      if (error) {
-        console.log(error);
-        //res.json({ status: "ERR", message: error })
-      } else {
-        console.log('Email for user sent: ' + info.response);
-        var agentmail = {
-          from: 'isupport-kelompok3',
-          to: handler_email,
-          subject: 'New ticket dispatched to you with ID: ' + results2[0].id,
-          text: 'New ticket has been opened and dispatched to you (' + handler_username + ") with detail \n \
+      })      
+      callback(null, { statusCode: 200, body: JSON.stringify(info) });
+      console.log('Email for user sent: ' + info.response);
+      
+      var info2 = await transporter.sendMail({
+        from: 'isupport-kelompok3',
+        to: handler_email,
+        subject: 'New ticket dispatched to you with ID: ' + results2[0].id,
+        text: 'New ticket has been opened and dispatched to you (' + handler_username + ") with detail \n \
         Requester: "+ lusername + "\n" +
-            "Title: " + ltitle + "\n" +
-            "Deskripsi: " + ldeskripsi + "\n" +
-            "Priority: " + lpriority + "\n" +
-            "Created at: " + results2[0].created_at + "\n"
-        }
-        transporter.sendMail(agentmail, function (error, info) {
-          if (error) {
-            console.log(error);
-            //res.json({ status: "ERR", message: error })
-          } else {
-            console.log('Email for agent sent: ' + info.response);
-            return res.status(201).json({ result: "OK", message: "Tickets added with ID: " + results2[0].id })
-            //res.json({ status: "OK", message: info.response })
-          }
-        })
-      }})
+          "Title: " + ltitle + "\n" +
+          "Deskripsi: " + ldeskripsi + "\n" +
+          "Priority: " + lpriority + "\n" +
+          "Created at: " + results2[0].created_at + "\n"
+      })
+      console.log('Email for agent sent: ' + info2.response);
     }
-    catch (e) {
-      json_msg.result = "Error"
-      json_msg.message = "Server Error "+e
-      //json_msg = '{ result: "Error", message: "Server Error" ' + e + ' }'
+    catch (error) {
+      callback(error);
     }
     return {
       statusCode: 200,
