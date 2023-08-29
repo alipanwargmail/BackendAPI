@@ -4,10 +4,10 @@ exports.handler = async function (event, context, callback) {
   let json_msg = {}
   let to = "6282115237855"
   let type = "text"
-  let text = "tes pake netlify3"
+  let text = "tes pake netlify4"
   let useTyping = true
   try {
-    var info = axios.post(process.env.WA_URL, {to, type, text, useTyping}, {
+    var info = await axios.post(process.env.WA_URL, {to, type, text, useTyping}, {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',

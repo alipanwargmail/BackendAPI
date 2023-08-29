@@ -30,10 +30,10 @@ exports.handler = async function (event, context) {
     console.log(lemail)
     try {
       console.log("find agent===============")
-      const results = await db.query("select a.id,a.username,a.email,count(*) from users a left join tickets b \
+      const results = await db.query("select a.id,a.username,a.email,a.phone_no,count(*) from users a left join tickets b \
       on a.id=b.handler_user_id and b.status <> 'DONE' \
       where a.role_user='AGENT'  \
-      group by a.id,a.username,a.email \
+      group by a.id,a.username,a.email,a.phone_no \
       order by count(*)")
       console.log(results)
       var handler_user_id = results[0].id;
