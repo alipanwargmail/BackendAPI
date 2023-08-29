@@ -12,7 +12,7 @@ exports.handler = async function (event, context, callback) {
 
   // create reusable transporter object using the default SMTP transport
   var transporter = nodemailer.createTransport({
-    service: 'gmail',
+    service: process.env.EMAIL_SERVICE,
     auth: {
       user: 'ikeltiga@gmail.com',
       //pass: 'Isupportkelompok32'

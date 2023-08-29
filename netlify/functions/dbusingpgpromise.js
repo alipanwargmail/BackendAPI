@@ -1,5 +1,3 @@
-
-
 const initOptions = {
 
     error: function (error, e) {
