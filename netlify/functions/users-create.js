@@ -1,7 +1,8 @@
 const db = require('./dbusingpgpromise.js');
+const bcryptjs = require('bcryptjs')
 
 exports.handler = async function (event, context) {
-
+  console.log(event.httpMethod)
   let json_msg = {};
   if (event.httpMethod == 'OPTIONS') {
     return {
@@ -15,35 +16,27 @@ exports.handler = async function (event, context) {
     };
   }
   else {
-    console.log(event.httpMethod)
-    console.log(process.env.DB_URL)
-    let { username, email, password, phone_no, role_user } = req.body
+    let lusername = JSON.parse(event.body).username
+    let lemail = JSON.parse(event.body).email
+    let lpassword = JSON.parse(event.body).password
+    let lphone_no = JSON.parse(event.body).phone_no
+    let lrole_user = JSON.parse(event.body).role_user
+    console.log(lusername)
+    console.log(lemail)
+    console.log(lpassword)
+    console.log(lphone_no)
+    console.log(lrole_user)
     try {
-      const client = await pool.connect()
-      const hash = await bcrypt.hash(password, 10)
-      password = hash
-      client.query('INSERT INTO users (username, email, password, phone_no, role_user, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) RETURNING *',
-        [username, email, password, phone_no, role_user], (error, results) => {
-          if (error) {
-            client.release()
-            return res.status(500).json({ result: "ERR", message: error })
-          }
-          client.release()
-          return res.status(201).json({ result: "OK", message: "User added with ID: " + results.rows[0].id })
-        })
-    }
-    catch (e) {
-      return res.status(500).json({ result: "ERR", message: e.message })
-    }
-
-    
-    try {
-      const result = await db.query('select * from users')
+      const hash = bcryptjs.hashSync(lpassword, 10)
+      const result = await db.query('INSERT INTO users (username, email, password, phone_no, role_user, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) RETURNING *', 
+        [lusername, lemail, hash, lphone_no, lrole_user])
       console.log(result)
       json_msg = result;
     }
     catch (e) {
-      json_msg = '{ result: "Error", message: "Server Error" ' + e + ' }'
+      json_msg.result = "Error"
+      json_msg.message = "Server Error "+e
+      //json_msg = '{ result: "Error", message: "Server Error" ' + e + ' }'
     }
     return {
       statusCode: 200,
@@ -52,7 +45,6 @@ exports.handler = async function (event, context) {
         "Access-Control-Allow-Headers": "Content-Type, Authorization, Origin, Access-Control-Allow-Origin",
         "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE,OPTIONS",
         "Content-Type": "application/json",
-
       },
       body: JSON.stringify(json_msg),
     };
