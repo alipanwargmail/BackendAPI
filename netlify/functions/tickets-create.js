@@ -1,7 +1,7 @@
 const db = require('./dbusingpgpromise.js');
 var nodemailer = require('nodemailer')
 
-exports.handler = async function (event, context) {
+exports.handler = async function (event, context, callback) {
   console.log(event.httpMethod)
   let json_msg = {};
   if (event.httpMethod == 'OPTIONS') {
@@ -85,7 +85,8 @@ exports.handler = async function (event, context) {
           "Created at: " + results2[0].created_at + "\n"
       })
       console.log('Email for agent sent: ' + info2.response);
-
+      callback(null, { statusCode: 200, body: JSON.stringify(info) });
+      
       var to = lphone_no
       const type = "text"
       var text = 'Your ticket has been created with ID: '+results2[0].id+' and handle by ' + handler_username
