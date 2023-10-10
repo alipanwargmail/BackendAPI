@@ -1,6 +1,7 @@
 import axios from "axios"
 
 exports.handler = async function (event, context, callback) {
+  console.log(event.httpMethod)
   let json_msg = {}
   let to = "6282115237855"
   let type = "text"
