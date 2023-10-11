@@ -20,7 +20,7 @@ exports.handler = async function (event, context) {
     console.log("param id: "+paramid)
     
     try {
-      const result = await db.query('select * from tickets where handler_id=$1', [paramid])
+      const result = await db.query('select * from tickets where handler_user_id=$1', [paramid])
       console.log(result)
       json_msg = result;
     }
