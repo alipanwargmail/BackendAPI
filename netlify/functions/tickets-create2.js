@@ -48,7 +48,7 @@ exports.handler = async function (event, context, callback) {
       console.log(handler_username)
       console.log(handler_email)
       console.log(handler_email)
-      var results2 = await db.query("INSERT INTO tickets (user_id, username, email, title, deskripsi, priority, handler_user_id, handler_username, status, phone_no, handler_email, handler_phone_no, created_at, updated_at, anper) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, 'OPEN', $9, $10, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, $11) RETURNING *",
+      var results2 = await db.query("INSERT INTO tickets (user_id, username, email, title, deskripsi, priority, handler_user_id, handler_username, status, phone_no, handler_email, handler_phone_no, created_at, updated_at, anper) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, 'OPEN', $9, $10, $11, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, $12) RETURNING *",
         [luser_id, lusername, lemail, ltitle, ldeskripsi, lpriority, handler_user_id, handler_username, lphone_no, handler_email, handler_phone_no, lanper])
       json_msg = results2;
     }
