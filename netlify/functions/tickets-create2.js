@@ -59,6 +59,8 @@ exports.handler = async function (event, context, callback) {
       //json_msg = '{ result: "Error", message: "Server Error" ' + e + ' }'
     }
     try {
+      console.log(process.env.EMAIL_SERVICE)
+      console.log(process.env.EMAIL_PASS)
       var transporter = nodemailer.createTransport({
         service: process.env.EMAIL_SERVICE,
         auth: {
@@ -75,7 +77,7 @@ exports.handler = async function (event, context, callback) {
       })      
       callback(null, { statusCode: 200, body: JSON.stringify(info) });
       console.log('Email for user sent: ' + info.response);
-      
+      /*
       var info2 = await transporter.sendMail({
         from: 'isupport-kelompok3',
         to: handler_email,
@@ -89,6 +91,7 @@ exports.handler = async function (event, context, callback) {
       })
       console.log('Email for agent sent: ' + info2.response);
       callback(null, { statusCode: 200, body: JSON.stringify(info) });
+      */
       /*
       var to = lphone_no
       const type = "text"
