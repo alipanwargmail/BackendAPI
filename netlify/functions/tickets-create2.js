@@ -24,6 +24,12 @@ exports.handler = async function (event, context, callback) {
     let lemail = JSON.parse(event.body).email
     let lphone_no = JSON.parse(event.body).phone_no
     let lanper = JSON.parse(event.body).anper
+ var today = new Date();
+var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+var dateTime = date+' '+time;
+ 
+console.log(dateTime)
     console.log(luser_id)
     console.log(lusername)
     console.log(ltitle)
@@ -76,6 +82,12 @@ exports.handler = async function (event, context, callback) {
         text: 'Your ticket has been created and handle by ' + handler_username
       })      
       //callback(null, { statusCode: 200, body: JSON.stringify(info) });
+       today = new Date();
+       date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+       time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+       dateTime = date+' '+time;
+       
+      console.log(dateTime)
       console.log('Email for user sent: ' + info.response);
       /**/ 
       var info2 = await transporter.sendMail({
@@ -89,6 +101,12 @@ exports.handler = async function (event, context, callback) {
           "Priority: " + lpriority + "\n" +
           "Created at: " + results2[0].created_at + "\n"
       })
+      today = new Date();
+      date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+      time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      dateTime = date+' '+time;
+      
+     console.log(dateTime)
       console.log('Email for agent sent: ' + info2.response);
       //callback(null, { statusCode: 200, body: JSON.stringify(info) });
       /**/
