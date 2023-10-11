@@ -75,7 +75,7 @@ exports.handler = async function (event, context, callback) {
         subject: 'New ticket created with ID: ' + results2[0].id,
         text: 'Your ticket has been created and handle by ' + handler_username
       })      
-      callback(null, { statusCode: 200, body: JSON.stringify(info) });
+      //callback(null, { statusCode: 200, body: JSON.stringify(info) });
       console.log('Email for user sent: ' + info.response);
       /*
       var info2 = await transporter.sendMail({
@@ -128,6 +128,7 @@ exports.handler = async function (event, context, callback) {
     catch (error) {
       callback(error);
     }
+    console.log("LEWAT SINI")
     return {
       statusCode: 200,
       headers: {
