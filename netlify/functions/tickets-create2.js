@@ -77,7 +77,7 @@ exports.handler = async function (event, context, callback) {
       })      
       //callback(null, { statusCode: 200, body: JSON.stringify(info) });
       console.log('Email for user sent: ' + info.response);
-      /*
+      /**/ 
       var info2 = await transporter.sendMail({
         from: 'isupport-kelompok3',
         to: handler_email,
@@ -90,8 +90,8 @@ exports.handler = async function (event, context, callback) {
           "Created at: " + results2[0].created_at + "\n"
       })
       console.log('Email for agent sent: ' + info2.response);
-      callback(null, { statusCode: 200, body: JSON.stringify(info) });
-      */
+      //callback(null, { statusCode: 200, body: JSON.stringify(info) });
+      /**/
       /*
       var to = lphone_no
       const type = "text"
