@@ -24,12 +24,12 @@ exports.handler = async function (event, context, callback) {
     let lemail = JSON.parse(event.body).email
     let lphone_no = JSON.parse(event.body).phone_no
     let lanper = JSON.parse(event.body).anper
- var today = new Date();
-var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-var dateTime = date+' '+time;
- 
-console.log(dateTime)
+    var today = new Date();
+    var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var dateTime = date + ' ' + time;
+
+    console.log(dateTime)
     console.log(luser_id)
     console.log(lusername)
     console.log(ltitle)
@@ -80,16 +80,16 @@ console.log(dateTime)
         to: lemail,
         subject: 'New ticket created with ID: ' + results2[0].id,
         text: 'Your ticket has been created and handle by ' + handler_username
-      })      
+      })
       //callback(null, { statusCode: 200, body: JSON.stringify(info) });
-       today = new Date();
-       date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-       time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-       dateTime = date+' '+time;
-       
+      today = new Date();
+      date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+      time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      dateTime = date + ' ' + time;
+
       console.log(dateTime)
       console.log('Email for user sent: ' + info.response);
-      /**/ 
+      /**/
       var info2 = await transporter.sendMail({
         from: 'isupport-kelompok3',
         to: handler_email,
@@ -102,11 +102,11 @@ console.log(dateTime)
           "Created at: " + results2[0].created_at + "\n"
       })
       today = new Date();
-      date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+      date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
       time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-      dateTime = date+' '+time;
-      
-     console.log(dateTime)
+      dateTime = date + ' ' + time;
+
+      console.log(dateTime)
       console.log('Email for agent sent: ' + info2.response);
       //callback(null, { statusCode: 200, body: JSON.stringify(info) });
       /**/
@@ -141,7 +141,7 @@ console.log(dateTime)
       })
       //console.log(info3);
       callback(null, { statusCode: 200, body: JSON.stringify({}) })   
-      */   
+      */
     }
     catch (error) {
       callback(error);
