@@ -23,6 +23,7 @@ exports.handler = async function (event, context, callback) {
     let lpriority = JSON.parse(event.body).priority
     let lemail = JSON.parse(event.body).email
     let lphone_no = JSON.parse(event.body).phone_no
+    let lanper = JSON.parse(event.body).anper
     console.log(luser_id)
     console.log(lusername)
     console.log(ltitle)
@@ -30,6 +31,7 @@ exports.handler = async function (event, context, callback) {
     console.log(lpriority)
     console.log(lemail)
     console.log(lphone_no)
+    console.log(lanper)
     try {
       console.log("find agent===============")
       const results = await db.query("select a.id,a.username,a.email,a.phone_no,count(*) from users a left join tickets b \
@@ -46,8 +48,8 @@ exports.handler = async function (event, context, callback) {
       console.log(handler_username)
       console.log(handler_email)
       console.log(handler_email)
-      var results2 = await db.query("INSERT INTO tickets (user_id, username, email, title, deskripsi, priority, handler_user_id, handler_username, status, phone_no, handler_email, handler_phone_no, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, 'OPEN', $9, $10, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) RETURNING *",
-        [luser_id, lusername, lemail, ltitle, ldeskripsi, lpriority, handler_user_id, handler_username, lphone_no, handler_email, handler_phone_no])
+      var results2 = await db.query("INSERT INTO tickets (user_id, username, email, title, deskripsi, priority, handler_user_id, handler_username, status, phone_no, handler_email, handler_phone_no, created_at, updated_at, anper) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, 'OPEN', $9, $10, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, $11) RETURNING *",
+        [luser_id, lusername, lemail, ltitle, ldeskripsi, lpriority, handler_user_id, handler_username, lphone_no, handler_email, handler_phone_no, lanper])
       json_msg = results2;
     }
     catch (e) {
