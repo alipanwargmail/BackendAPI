@@ -21,7 +21,7 @@ exports.handler = async function (event, context, callback) {
         'authorization': 'Bearer ' + process.env.WA_TOKEN
       }
     })
-    console.log(info);
+    //console.log(info);
     callback(null, { statusCode: 200, body: JSON.stringify({}) })
     json_msg = "{}"
   }
