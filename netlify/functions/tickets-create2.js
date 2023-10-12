@@ -42,9 +42,9 @@ exports.handler = async function (event, context, callback) {
       console.log("find agent===============")
       const results = await db.query("select a.id,a.username,a.email,a.phone_no,count(*) from users a left join tickets b \
       on a.id=b.handler_user_id and b.status <> 'DONE' \
-      where a.role_user='AGENT'  \
+      where a.role_user='AGENT' and a.anper=$1  \
       group by a.id,a.username,a.email,a.phone_no \
-      order by count(*)")
+      order by count(*)", [lanper])
       console.log(results)
       var handler_user_id = results[0].id;
       var handler_username = results[0].username;
@@ -64,6 +64,7 @@ exports.handler = async function (event, context, callback) {
       console.log("Server Error " + e)
       //json_msg = '{ result: "Error", message: "Server Error" ' + e + ' }'
     }
+
     try {
       console.log(process.env.EMAIL_SERVICE)
       console.log(process.env.EMAIL_PASS)
@@ -75,21 +76,27 @@ exports.handler = async function (event, context, callback) {
           pass: process.env.EMAIL_PASS
         }
       });
+      /*
       var info = await transporter.sendMail({
         from: 'isupport-kelompok3',
         to: lemail,
         subject: 'New ticket created with ID: ' + results2[0].id,
         text: 'Your ticket has been created and handle by ' + handler_username
-      })
+      })*/
+      let subject = 'New ticket created with ID: ' + results2[0].id
+      let body = 'Your ticket has been created and handle by ' + handler_username
+      var results3 = await db.query("INSERT INTO emails(recipient, subject, body, created_at, is_sent) VALUES ($1, $2, $3, CURRENT_TIMESTAMP, 0) RETURNING *",
+      [lemail, subject, body]);      
+
       //callback(null, { statusCode: 200, body: JSON.stringify(info) });
       today = new Date();
       date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
       time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
       dateTime = date + ' ' + time;
-
       console.log(dateTime)
-      console.log('Email for user sent: ' + info.response);
+      console.log('Email for user pushed to db, email id: ' + results3.id);
       /**/
+      /*
       var info2 = await transporter.sendMail({
         from: 'isupport-kelompok3',
         to: handler_email,
@@ -101,13 +108,24 @@ exports.handler = async function (event, context, callback) {
           "Priority: " + lpriority + "\n" +
           "Created at: " + results2[0].created_at + "\n"
       })
+      */
+      subject = 'New ticket dispatched to you with ID: ' + results2[0].id,
+      body = 'New ticket has been opened and dispatched to you (' + handler_username + ") with detail \n \
+      Requester: "+ lusername + "\n" +
+        "Title: " + ltitle + "\n" +
+        "Deskripsi: " + ldeskripsi + "\n" +
+        "Priority: " + lpriority + "\n" +
+        "Created at: " + results2[0].created_at + "\n"
+      var results4 = await db.query("INSERT INTO emails(recipient, subject, body, created_at, is_sent) VALUES ($1, $2, $3, CURRENT_TIMESTAMP, 0) RETURNING *",
+      [handler_email, subject, body]);      
+  
       today = new Date();
       date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
       time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
       dateTime = date + ' ' + time;
 
       console.log(dateTime)
-      console.log('Email for agent sent: ' + info2.response);
+      console.log('Email for agent pushed to db, email id: ' + results4.id);
       //callback(null, { statusCode: 200, body: JSON.stringify(info) });
       /**/
       /*
@@ -143,7 +161,8 @@ exports.handler = async function (event, context, callback) {
       callback(null, { statusCode: 200, body: JSON.stringify({}) })   
       */
     }
-    catch (error) {
+    catch (error) {      
+      console.log("Server Error " + error)
       callback(error);
     }
     console.log("LEWAT SINI")
