@@ -1,5 +1,6 @@
 const db = require('./dbusingpgpromise.js');
 var nodemailer = require('nodemailer')
+import axios from "axios"
 
 exports.handler = async function (event, context, callback) {
   console.log(event.httpMethod)
