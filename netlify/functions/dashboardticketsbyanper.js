@@ -20,8 +20,9 @@ exports.handler = async function (event, context) {
     try {
       const result = await db.query("select a.anper, (select count(*) from tickets where status='OPEN' and anper=a.anper) as OPEN, (select count(*) from tickets where status='IN PROGRESS' and anper=a.anper) as INPROGRESS, (select count(*) from tickets where status='DONE' and anper=a.anper) as DONE FROM (select distinct anper from tickets) a order by a.anper")
       console.log(result)
+      json_msg.all = new Object();
       if (result.length > 0) {
-        json_msg = result;
+        json_msg.all = result;
       }
       else {
         item = new Object();
@@ -29,7 +30,21 @@ exports.handler = async function (event, context) {
         item.open = 0;
         item.inprogress = 0;
         item.done = 0;
-        json_msg.push(item)
+        json_msg.all.push(item)
+      }
+      const bsresult = await db.query("select a.handler_username, (select count(*) from tickets where status='OPEN' and handler_username=a.handler_username) as OPEN, (select count(*) from tickets where status='IN PROGRESS' and handler_username=a.handler_username) as INPROGRESS, 	(select count(*) from tickets where status='DONE' and handler_username=a.handler_username) as DONE FROM (select distinct handler_username from tickets where anper='BS') a order by a.handler_username")
+      console.log(bsresult)
+      json_msg.bs = new Object();
+      if (result.length > 0) {
+        json_msg.bs = bsresult;
+      }
+      else {
+        item = new Object();
+        item.anper = "anper"
+        item.open = 0;
+        item.inprogress = 0;
+        item.done = 0;
+        json_msg.bs.push(item)
       }
     }
     catch (e) {
