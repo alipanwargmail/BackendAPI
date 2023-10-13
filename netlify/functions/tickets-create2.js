@@ -86,8 +86,8 @@ exports.handler = async function (event, context, callback) {
       })*/
       let subject = 'New ticket created with ID: ' + results2[0].id
       let body = 'Your ticket has been created and handle by ' + handler_username
-      var results3 = await db.query("INSERT INTO emails(recipient, subject, body, created_at, is_sent) VALUES ($1, $2, $3, CURRENT_TIMESTAMP, 0) RETURNING *",
-      [lemail, subject, body]);      
+      var results3 = await db.query("INSERT INTO emails(recipient, subject, body, created_at, is_sent, ticket_id) VALUES ($1, $2, $3, CURRENT_TIMESTAMP, 0, $4) RETURNING *",
+      [lemail, subject, body, results2[0].id]);      
 
       //callback(null, { statusCode: 200, body: JSON.stringify(info) });
       today = new Date();
@@ -117,8 +117,8 @@ exports.handler = async function (event, context, callback) {
         "Deskripsi: " + ldeskripsi + "\n" +
         "Priority: " + lpriority + "\n" +
         "Created at: " + results2[0].created_at + "\n"
-      var results4 = await db.query("INSERT INTO emails(recipient, subject, body, created_at, is_sent) VALUES ($1, $2, $3, CURRENT_TIMESTAMP, 0) RETURNING *",
-      [handler_email, subject, body]);      
+      var results4 = await db.query("INSERT INTO emails(recipient, subject, body, created_at, is_sent, ticket_id) VALUES ($1, $2, $3, CURRENT_TIMESTAMP, 0, $4) RETURNING *",
+      [handler_email, subject, body, results2[0].id]);      
   
       today = new Date();
       date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
