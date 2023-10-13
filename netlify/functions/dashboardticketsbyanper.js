@@ -32,6 +32,20 @@ exports.handler = async function (event, context) {
         item.done = 0;
         json_msg.all.push(item)
       }
+      const askrindoresult = await db.query("select a.handler_username, (select count(*) from tickets where status='OPEN' and handler_username=a.handler_username) as OPEN, (select count(*) from tickets where status='IN PROGRESS' and handler_username=a.handler_username) as INPROGRESS, 	(select count(*) from tickets where status='DONE' and handler_username=a.handler_username) as DONE FROM (select distinct handler_username from tickets where anper='Askrindo') a order by a.handler_username")
+      console.log(askrindoresult)
+      json_msg.askrindo = new Object();
+      if (result.length > 0) {
+        json_msg.bs = askrindoresult;
+      }
+      else {
+        item = new Object();
+        item.handler_username = "handler_username"
+        item.open = 0;
+        item.inprogress = 0;
+        item.done = 0;
+        json_msg.askrindo.push(item)
+      }
       const bsresult = await db.query("select a.handler_username, (select count(*) from tickets where status='OPEN' and handler_username=a.handler_username) as OPEN, (select count(*) from tickets where status='IN PROGRESS' and handler_username=a.handler_username) as INPROGRESS, 	(select count(*) from tickets where status='DONE' and handler_username=a.handler_username) as DONE FROM (select distinct handler_username from tickets where anper='BS') a order by a.handler_username")
       console.log(bsresult)
       json_msg.bs = new Object();
@@ -40,7 +54,7 @@ exports.handler = async function (event, context) {
       }
       else {
         item = new Object();
-        item.anper = "anper"
+        item.handler_username = "handler_username"
         item.open = 0;
         item.inprogress = 0;
         item.done = 0;
