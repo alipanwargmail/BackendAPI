@@ -35,14 +35,14 @@ exports.handler = async function (event, context, callback) {
           let type = "text"
           let text = results[0].content
           let useTyping = "true"
-          await axios.post(process.env.WA_URL, {to, type, text, useTyping}, {
+            axios.post(process.env.WA_URL, {to, type, text, useTyping}, {
             headers: {
               'Content-Type': 'application/json',
               'Access-Control-Allow-Origin': '*',
               'authorization': 'Bearer ' + process.env.WA_TOKEN
-            }
+            }            
           })
-      
+          callback(null, { statusCode: 200, body: JSON.stringify({}) })
           await db.query("update emails set is_sent=1, sent_at=CURRENT_TIMESTAMP where id=$1",
             [results[0].id])
         }
@@ -51,13 +51,14 @@ exports.handler = async function (event, context, callback) {
           let type = "text"
           let text = results[1].content
           let useTyping = "true"
-          await axios.post(process.env.WA_URL, {to, type, text, useTyping}, {
+          axios.post(process.env.WA_URL, {to, type, text, useTyping}, {
             headers: {
               'Content-Type': 'application/json',
               'Access-Control-Allow-Origin': '*',
               'authorization': 'Bearer ' + process.env.WA_TOKEN
             }
           })
+          callback(null, { statusCode: 200, body: JSON.stringify({}) })
           await db.query("update emails set is_sent=1, sent_at=CURRENT_TIMESTAMP where id=$1",
             [results[1].id])
         }
