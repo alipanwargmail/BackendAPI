@@ -28,19 +28,19 @@ exports.handler = async function (event, context, callback) {
       var results = await db.query("select * from wamsg where ticket_id=$1 and is_sent=0",
         [ticket_id])
       if (results.length !== 'Undefined') {
-        
+
         if (results.length > 0) {
-          
+
           let to = results[0].recipient
           let type = "text"
           let text = results[0].content
           let useTyping = "true"
-            axios.post(process.env.WA_URL, {to, type, text, useTyping}, {
+          await axios.post(process.env.WA_URL, { to, type, text, useTyping }, {
             headers: {
               'Content-Type': 'application/json',
               'Access-Control-Allow-Origin': '*',
               'authorization': 'Bearer ' + process.env.WA_TOKEN
-            }            
+            }
           })
           callback(null, { statusCode: 200, body: JSON.stringify({}) })
           await db.query("update emails set is_sent=1, sent_at=CURRENT_TIMESTAMP where id=$1",
@@ -51,7 +51,7 @@ exports.handler = async function (event, context, callback) {
           let type = "text"
           let text = results[1].content
           let useTyping = "true"
-          axios.post(process.env.WA_URL, {to, type, text, useTyping}, {
+          axios.post(process.env.WA_URL, { to, type, text, useTyping }, {
             headers: {
               'Content-Type': 'application/json',
               'Access-Control-Allow-Origin': '*',
