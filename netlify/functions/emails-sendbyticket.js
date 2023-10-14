@@ -25,10 +25,32 @@ exports.handler = async function (event, context, callback) {
     console.log(dateTime)
     console.log(ticket_id)
     try {
-      var results = await db.query("select * from emails where ticket_id=$1",
+      var results = await db.query("select * from emails where ticket_id=$1 and is_sent=0",
         [ticket_id])
+        if(results.length !== 'Undefined'){
+          var transporter = nodemailer.createTransport({
+            service: process.env.EMAIL_SERVICE,
+            auth: {
+              user: 'ikeltiga@gmail.com',
+              //pass: 'Isupportkelompok32'
+              pass: 'ewxsofcnulplgjhn'
+            }
+          });        
+          results.array.forEach(element => {
+            transporter.sendMail({
+              from: 'isupport-kelompok3',
+              to: element.recipient,
+              subject: element.subject,
+              text: element.body,
+              html: html,
+            });
+            callback(null, { statusCode: 200, body: JSON.stringify(info) });
+            
+          });
+        }
         console.log(results.length);
-        console.log(results[0])
+      
+        
       json_msg = results;
     }
     catch (e) {
