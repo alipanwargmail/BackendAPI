@@ -60,6 +60,7 @@ exports.handler = async function (event, context, callback) {
             dateTime = date + ' ' + time;
              console.log("4"+dateTime)
         }
+        /*
         if (results.length > 1) {
           let to = results[1].recipient
           let type = "text"
@@ -93,6 +94,7 @@ exports.handler = async function (event, context, callback) {
              console.log("7"+dateTime)
   
         }
+        */
 
       }
       console.log(results.length);
