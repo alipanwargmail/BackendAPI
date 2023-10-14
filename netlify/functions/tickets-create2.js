@@ -1,6 +1,6 @@
 const db = require('./dbusingpgpromise.js');
-var nodemailer = require('nodemailer')
-import axios from "axios"
+//var nodemailer = require('nodemailer')
+//import axios from "axios"
 
 exports.handler = async function (event, context, callback) {
   console.log(event.httpMethod)
@@ -124,16 +124,24 @@ exports.handler = async function (event, context, callback) {
       date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
       time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
       dateTime = date + ' ' + time;
-
       console.log(dateTime)
       console.log('Email for agent pushed to db, email id: ' + results4[0].id);
       //callback(null, { statusCode: 200, body: JSON.stringify(info) });
       /**/
       /** */
       var to = lphone_no
-      const type = "text"
       var text = 'Your ticket has been created with ID: '+results2[0].id+' and handle by ' + handler_username
+      var results5 = await db.query("INSERT INTO wamsg(recipient, content, created_at, is_sent, ticket_id) VALUES ($1, $2, CURRENT_TIMESTAMP, 0, $3) RETURNING *",
+      [to, text, results2[0].id]);            
+      today = new Date();
+      date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+      time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      dateTime = date + ' ' + time;
+      console.log(dateTime)
+      console.log('Wa message for user pushed to db, wamsg id: ' + results5[0].id);
+      /*
       const useTyping = "true"
+      const type = "text"
       await axios.post(process.env.WA_URL, {to, type, text, useTyping}, {
         headers: {
           'Content-Type': 'application/json',
@@ -141,6 +149,7 @@ exports.handler = async function (event, context, callback) {
           'authorization': 'Bearer ' + process.env.WA_TOKEN
         }
       })
+      */
       //console.log(info3);
       //callback(null, { statusCode: 200, body: JSON.stringify({}) })
       
@@ -151,6 +160,16 @@ exports.handler = async function (event, context, callback) {
       "Deskripsi: " + ldeskripsi + "\n" +
       "Priority: " + lpriority + "\n" +
       "Created at: " + results2[0].created_at
+      var results6 = await db.query("INSERT INTO wamsg(recipient, content, created_at, is_sent, ticket_id) VALUES ($1, $2, CURRENT_TIMESTAMP, 0, $3) RETURNING *",
+      [to, text, results2[0].id]);            
+      today = new Date();
+      date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+      time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      dateTime = date + ' ' + time;
+      console.log(dateTime)
+      console.log('Wa message for user pushed to db, wamsg id: ' + results6[0].id);
+
+      /*
       await axios.post(process.env.WA_URL, {to, type, text, useTyping}, {
         headers: {
           'Content-Type': 'application/json',
@@ -158,6 +177,7 @@ exports.handler = async function (event, context, callback) {
           'authorization': 'Bearer ' + process.env.WA_TOKEN
         }
       })
+      */
       //console.log(info3);
       //callback(null, { statusCode: 200, body: JSON.stringify({}) })   
       /**/

@@ -14,7 +14,8 @@ exports.handler = async function (event, context, callback) {
   let text = "tes pake netlify4"
   let useTyping = true
   try {
-    var info = await axios.post(process.env.WA_URL, {to, type, text, useTyping}, {
+    //var info = 
+    await axios.post(process.env.WA_URL, {to, type, text, useTyping}, {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
