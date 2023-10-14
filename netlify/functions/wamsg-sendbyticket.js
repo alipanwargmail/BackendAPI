@@ -28,7 +28,11 @@ exports.handler = async function (event, context, callback) {
       var results = await db.query("select * from wamsg where ticket_id=$1 and is_sent=0",
         [ticket_id])
       if (results.length !== 'Undefined') {
-
+         today = new Date();
+         date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+         time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+         dateTime = date + ' ' + time;
+        console.log("2"+dateTime)
         if (results.length > 0) {
 
           let to = results[0].recipient
@@ -42,15 +46,30 @@ exports.handler = async function (event, context, callback) {
               'authorization': 'Bearer ' + process.env.WA_TOKEN
             }
           })
+          today = new Date();
+          date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+          time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+          dateTime = date + ' ' + time;
+           console.log("3"+dateTime)
           //callback(null, { statusCode: 200, body: JSON.stringify({}) })
           await db.query("update emails set is_sent=1, sent_at=CURRENT_TIMESTAMP where id=$1",
             [results[0].id])
+            today = new Date();
+            date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+            time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            dateTime = date + ' ' + time;
+             console.log("4"+dateTime)
         }
         if (results.length > 1) {
           let to = results[1].recipient
           let type = "text"
           let text = results[1].content
           let useTyping = "true"
+          today = new Date();
+          date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+          time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+          dateTime = date + ' ' + time;
+           console.log("5"+dateTime)
           await axios.post(process.env.WA_URL, { to, type, text, useTyping }, {
             headers: {
               'Content-Type': 'application/json',
@@ -58,9 +77,21 @@ exports.handler = async function (event, context, callback) {
               'authorization': 'Bearer ' + process.env.WA_TOKEN
             }
           })
+          today = new Date();
+          date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+          time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+          dateTime = date + ' ' + time;
+           console.log("6"+dateTime)
+
           //callback(null, { statusCode: 200, body: JSON.stringify({}) })
           await db.query("update emails set is_sent=1, sent_at=CURRENT_TIMESTAMP where id=$1",
             [results[1].id])
+            today = new Date();
+            date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+            time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            dateTime = date + ' ' + time;
+             console.log("7"+dateTime)
+  
         }
 
       }
