@@ -45,6 +45,8 @@ exports.handler = async function (event, context, callback) {
             text: results[0].body,
             //html: html,
           });
+          await db.query("update emails set is_sent=1, sent_at=CURRENT_TIMESTAMP where id=$1",
+            [results[0].id])
         }
         if (results.length > 1) {
           await transporter.sendMail({
@@ -52,8 +54,10 @@ exports.handler = async function (event, context, callback) {
             to: results[1].recipient,
             subject: results[1].subject,
             text: results[1].body,
-           //html: html,
+            //html: html,
           });
+          await db.query("update emails set is_sent=1, sent_at=CURRENT_TIMESTAMP where id=$1",
+            [results[1].id])
         }
 
       }
