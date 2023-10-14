@@ -27,30 +27,39 @@ exports.handler = async function (event, context, callback) {
     try {
       var results = await db.query("select * from emails where ticket_id=$1 and is_sent=0",
         [ticket_id])
-        if(results.length !== 'Undefined'){
-          var transporter = nodemailer.createTransport({
-            service: process.env.EMAIL_SERVICE,
-            auth: {
-              user: 'ikeltiga@gmail.com',
-              //pass: 'Isupportkelompok32'
-              pass: 'ewxsofcnulplgjhn'
-            }
-          });        
-          results.array.forEach(element => {
-            transporter.sendMail({
-              from: 'isupport-kelompok3',
-              to: element.recipient,
-              subject: element.subject,
-              text: element.body,
-              html: html,
-            });
-            callback(null, { statusCode: 200, body: JSON.stringify(info) });
-            
+      if (results.length !== 'Undefined') {
+        var transporter = nodemailer.createTransport({
+          service: process.env.EMAIL_SERVICE,
+          auth: {
+            user: 'ikeltiga@gmail.com',
+            //pass: 'Isupportkelompok32'
+            pass: 'ewxsofcnulplgjhn'
+          }
+        });
+
+        if (results.length > 0) {
+          await transporter.sendMail({
+            from: 'isupport-kelompok3',
+            to: results[0].recipient,
+            subject: results[0].subject,
+            text: results[0].body,
+            html: html,
           });
         }
-        console.log(results.length);
-      
-        
+        if (results.length > 1) {
+          await transporter.sendMail({
+            from: 'isupport-kelompok3',
+            to: results[1].recipient,
+            subject: results[1].subject,
+            text: results[1].body,
+            html: html,
+          });
+        }
+
+      }
+      console.log(results.length);
+
+
       json_msg = results;
     }
     catch (e) {
@@ -60,7 +69,7 @@ exports.handler = async function (event, context, callback) {
       //json_msg = '{ result: "Error", message: "Server Error" ' + e + ' }'
     }
 
-    try {      
+    try {
       /*
       console.log(process.env.EMAIL_SERVICE)
       console.log(process.env.EMAIL_PASS)
@@ -103,25 +112,25 @@ exports.handler = async function (event, context, callback) {
           "Created at: " + results2[0].created_at + "\n"
       })
       */
-     /*
-      subject = 'New ticket dispatched to you with ID: ' + results2[0].id,
-      body = 'New ticket has been opened and dispatched to you (' + handler_username + ") with detail \n \
-      Requester: "+ lusername + "\n" +
-        "Title: " + ltitle + "\n" +
-        "Deskripsi: " + ldeskripsi + "\n" +
-        "Priority: " + lpriority + "\n" +
-        "Created at: " + results2[0].created_at + "\n"
-      var results4 = await db.query("INSERT INTO emails(recipient, subject, body, created_at, is_sent, ticket_id) VALUES ($1, $2, $3, CURRENT_TIMESTAMP, 0, $4) RETURNING *",
-      [handler_email, subject, body, results2[0].id]);      
-  
-      today = new Date();
-      date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-      time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-      dateTime = date + ' ' + time;
-      console.log(dateTime)
-      console.log('Email for agent pushed to db, email id: ' + results4[0].id);
-      //callback(null, { statusCode: 200, body: JSON.stringify(info) });
-      */
+      /*
+       subject = 'New ticket dispatched to you with ID: ' + results2[0].id,
+       body = 'New ticket has been opened and dispatched to you (' + handler_username + ") with detail \n \
+       Requester: "+ lusername + "\n" +
+         "Title: " + ltitle + "\n" +
+         "Deskripsi: " + ldeskripsi + "\n" +
+         "Priority: " + lpriority + "\n" +
+         "Created at: " + results2[0].created_at + "\n"
+       var results4 = await db.query("INSERT INTO emails(recipient, subject, body, created_at, is_sent, ticket_id) VALUES ($1, $2, $3, CURRENT_TIMESTAMP, 0, $4) RETURNING *",
+       [handler_email, subject, body, results2[0].id]);      
+   
+       today = new Date();
+       date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+       time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+       dateTime = date + ' ' + time;
+       console.log(dateTime)
+       console.log('Email for agent pushed to db, email id: ' + results4[0].id);
+       //callback(null, { statusCode: 200, body: JSON.stringify(info) });
+       */
       /** 
       var to = lphone_no
       var text = 'Your ticket has been created with ID: '+results2[0].id+' and handle by ' + handler_username
@@ -176,7 +185,7 @@ exports.handler = async function (event, context, callback) {
       //callback(null, { statusCode: 200, body: JSON.stringify({}) })   
       /**/
     }
-    catch (error) {      
+    catch (error) {
       console.log("Server Error " + error)
       callback(error);
     }
