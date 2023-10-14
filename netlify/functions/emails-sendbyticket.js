@@ -27,7 +27,7 @@ exports.handler = async function (event, context, callback) {
     try {
       var results = await db.query("select * from emails where id=$1",
         [ticket_id])
-        console.log('results');
+        console.log(results.length);
       json_msg = results;
     }
     catch (e) {
@@ -37,15 +37,14 @@ exports.handler = async function (event, context, callback) {
       //json_msg = '{ result: "Error", message: "Server Error" ' + e + ' }'
     }
 
-    try {
+    try {      
       /*
       console.log(process.env.EMAIL_SERVICE)
       console.log(process.env.EMAIL_PASS)
       var transporter = nodemailer.createTransport({
         service: process.env.EMAIL_SERVICE,
         auth: {
-          user: process.env.EMAIL_USER,
-          //pass: 'Isupportkelompok32'
+          user: process.env.EMAIL_USER,         
           pass: process.env.EMAIL_PASS
         }
       });      
@@ -54,7 +53,7 @@ exports.handler = async function (event, context, callback) {
         to: lemail,
         subject: 'New ticket created with ID: ' + results2[0].id,
         text: 'Your ticket has been created and handle by ' + handler_username
-      })*/
+      })
       let subject = 'New ticket created with ID: ' + results2[0].id
       let body = 'Your ticket has been created and handle by ' + handler_username
       var results3 = await db.query("INSERT INTO emails(recipient, subject, body, created_at, is_sent, ticket_id) VALUES ($1, $2, $3, CURRENT_TIMESTAMP, 0, $4) RETURNING *",
@@ -67,7 +66,7 @@ exports.handler = async function (event, context, callback) {
       dateTime = date + ' ' + time;
       console.log(dateTime)
       console.log('Email for user pushed to db, email id: ' + results3[0].id);
-      /**/
+      */
       /*
       var info2 = await transporter.sendMail({
         from: 'isupport-kelompok3',
@@ -81,6 +80,7 @@ exports.handler = async function (event, context, callback) {
           "Created at: " + results2[0].created_at + "\n"
       })
       */
+     /*
       subject = 'New ticket dispatched to you with ID: ' + results2[0].id,
       body = 'New ticket has been opened and dispatched to you (' + handler_username + ") with detail \n \
       Requester: "+ lusername + "\n" +
@@ -98,8 +98,8 @@ exports.handler = async function (event, context, callback) {
       console.log(dateTime)
       console.log('Email for agent pushed to db, email id: ' + results4[0].id);
       //callback(null, { statusCode: 200, body: JSON.stringify(info) });
-      /**/
-      /** */
+      */
+      /** 
       var to = lphone_no
       var text = 'Your ticket has been created with ID: '+results2[0].id+' and handle by ' + handler_username
       var results5 = await db.query("INSERT INTO wamsg(recipient, content, created_at, is_sent, ticket_id) VALUES ($1, $2, CURRENT_TIMESTAMP, 0, $3) RETURNING *",
@@ -123,7 +123,7 @@ exports.handler = async function (event, context, callback) {
       */
       //console.log(info3);
       //callback(null, { statusCode: 200, body: JSON.stringify({}) })
-      
+      /*
       to = handler_phone_no
       text = "Your ticket has been opened with ID: "+results2[0].id+" and dispatched to you (" + handler_username + ") with detail: \n" +
       "Requester: "+ lusername + "\n" +
