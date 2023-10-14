@@ -38,6 +38,7 @@ exports.handler = async function (event, context) {
     catch (e) {
       json_msg.result = "Error"
       json_msg.message = "Server Error "+e
+      console.log("Server Error "+e)
       //json_msg = '{ result: "Error", message: "Server Error" ' + e + ' }'
     }
     return {

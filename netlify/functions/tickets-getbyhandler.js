@@ -20,13 +20,14 @@ exports.handler = async function (event, context) {
     console.log("param id: "+paramid)
     
     try {
-      const result = await db.query('select * from tickets where handler_user_id=$1', [paramid])
+      const result = await db.query('select * from tickets where handler_user_id=$1 order by id desc', [paramid])
       console.log(result)
       json_msg = result;
     }
     catch (e) {
       json_msg.result = "Error"
       json_msg.message = "Server Error "+e
+      console.log("Server Error "+e)
       //json_msg = '{ result: "Error", message: "Server Error" ' + e + ' }'
     }
     return {
