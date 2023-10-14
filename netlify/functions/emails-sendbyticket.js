@@ -43,7 +43,7 @@ exports.handler = async function (event, context, callback) {
             to: results[0].recipient,
             subject: results[0].subject,
             text: results[0].body,
-            html: html,
+            //html: html,
           });
         }
         if (results.length > 1) {
@@ -52,7 +52,7 @@ exports.handler = async function (event, context, callback) {
             to: results[1].recipient,
             subject: results[1].subject,
             text: results[1].body,
-            html: html,
+           //html: html,
           });
         }
 
