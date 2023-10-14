@@ -18,7 +18,7 @@ exports.handler = async function (event, context) {
     console.log(process.env.DB_URL)
     
     try {
-      const result = await db.query('select * from tickets')
+      const result = await db.query('select * from tickets order by id desc')
       console.log(result)
       json_msg = result;
     }
