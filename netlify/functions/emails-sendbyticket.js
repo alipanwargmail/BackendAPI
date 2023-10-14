@@ -27,7 +27,7 @@ exports.handler = async function (event, context, callback) {
     try {
       var results = await db.query("select * from emails where id=$1",
         [ticket_id])
-        console.log(results.length);
+        console.log(results[0])
       json_msg = results;
     }
     catch (e) {
