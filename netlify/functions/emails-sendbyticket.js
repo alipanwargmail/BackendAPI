@@ -17,12 +17,12 @@ exports.handler = async function (event, context, callback) {
     };
   }
   else {
-    let ticket_id = JSON.parse(event.body).ticket_id
+    let ticket_id = event.queryStringParameters.ticket_id;
     var today = new Date();
     var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     var dateTime = date + ' ' + time;
-
+    console.log(dateTime)
     console.log(ticket_id)
     try {
       var results = await db.query("select * from emails where id=$1",
