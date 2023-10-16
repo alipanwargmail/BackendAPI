@@ -29,8 +29,8 @@ exports.handler = async function (event, context, callback) {
     var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     var dateTime = date + ' ' + time;
-
     console.log(dateTime)
+    
     console.log(luser_id)
     console.log(lusername)
     console.log(ltitle)

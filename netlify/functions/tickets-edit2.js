@@ -31,6 +31,7 @@ exports.handler = async function (event, context, callback) {
     let lemail = JSON.parse(event.body).email
     let lphone_no = JSON.parse(event.body).phone_no
     let lhandler_phone_no = JSON.parse(event.body).handler_phone_no
+    let lanper = JSON.parse(event.body).anper
     console.log(llogin_id)
     console.log(lloginname)
     console.log(lloginrole)
@@ -46,18 +47,26 @@ exports.handler = async function (event, context, callback) {
     console.log(lemail)
     console.log(lphone_no)
     console.log(lhandler_phone_no)
+    console.log(lanper)
+    var today = new Date();
+    var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var dateTime = date + ' ' + time;
+    console.log(dateTime)
+
     try {
-      var results = await db.query('UPDATE tickets SET user_id = $1, handler_user_id=$2, username=$3, handler_username=$4, title=$5, deskripsi=$6, priority=$7, status=$8, updated_at=CURRENT_TIMESTAMP WHERE id = $9 RETURNING *',
-      [luser_id, lhandler_user_id, lusername, lhandler_username, ltitle, ldeskripsi, lpriority, lstatus, paramid])
+      var results = await db.query('UPDATE tickets SET user_id = $1, handler_user_id=$2, username=$3, handler_username=$4, title=$5, deskripsi=$6, priority=$7, status=$8, anper=$9 updated_at=CURRENT_TIMESTAMP WHERE id = $10 RETURNING *',
+      [luser_id, lhandler_user_id, lusername, lhandler_username, ltitle, ldeskripsi, lpriority, lstatus, lanper, paramid])
       json_msg = results;
     }
     catch (e) {
       json_msg.result = "Error"
       json_msg.message = "Server Error " + e
+      console.log("Server Error " + e)
       //json_msg = '{ result: "Error", message: "Server Error" ' + e + ' }'
     }
     try {
-      var transporter = nodemailer.createTransport({
+      /*var transporter = nodemailer.createTransport({
         service: process.env.EMAIL_SERVICE,
         auth: {
           user: process.env.EMAIL_USER,
@@ -79,8 +88,27 @@ exports.handler = async function (event, context, callback) {
         "Updated at: " + results[0].updated_at + "\n"
       })      
       callback(null, { statusCode: 200, body: JSON.stringify(info) });
-      console.log('Email for user sent: ' + info.response);
+      console.log('Email for user sent: ' + info.response);*/
+      let to = lemail
+      let subject = 'Ticket with ID: ' + results[0].id + ' has been updated'
+      let body = 'Ticket with ID: ' + results[0].id + 'has been updated by ' + lloginname + '(' + lloginrole + ')\n' +
+      "Requester: " + results[0].username + "\n" +
+      "Title: " + results[0].title + "\n" +
+      "Deskripsi: " + results[0].deskripsi + "\n" +
+      "Priority: " + results[0].priority + "\n" +
+      "Status: " + results[0].status + "\n" +
+      "Created at: " + results[0].created_at + "\n" +
+      "Updated at: " + results[0].updated_at + "\n"
+      var results2 = await db.query("INSERT INTO emails(recipient, subject, body, created_at, is_sent, ticket_id) VALUES ($1, $2, $3, CURRENT_TIMESTAMP, 0, $4) RETURNING *",
+      [to, subject, body, results[0].id]);      
+      today = new Date();
+      date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+      time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      dateTime = date + ' ' + time;
+      console.log(dateTime)
+      console.log('Email for user pushed to db, email id: ' + results2[0].id);
       
+      /*
       var info2 = await transporter.sendMail({
         from: 'isupport-kelompok3',
         to: handler_email,
@@ -92,8 +120,26 @@ exports.handler = async function (event, context, callback) {
           "Priority: " + lpriority + "\n" +
           "Created at: " + results2[0].created_at + "\n"
       })
-      console.log('Email for agent sent: ' + info2.response);
-      callback(null, { statusCode: 200, body: JSON.stringify(info) });
+      console.log('Email for agent sent: ' + info2.response);*/
+      to = handler_email
+      subject = 'Ticket with ID: ' + results[0].id + ' has been updated'
+      body = 'Ticket with ID: ' + results[0].id + 'has been updated by ' + lloginname + '(' + lloginrole + ')\n' +
+      "Requester: " + results[0].username + "\n" +
+      "Title: " + results[0].title + "\n" +
+      "Deskripsi: " + results[0].deskripsi + "\n" +
+      "Priority: " + results[0].priority + "\n" +
+      "Status: " + results[0].status + "\n" +
+      "Created at: " + results[0].created_at + "\n" +
+      "Updated at: " + results[0].updated_at + "\n"
+      var results3 = await db.query("INSERT INTO emails(recipient, subject, body, created_at, is_sent, ticket_id) VALUES ($1, $2, $3, CURRENT_TIMESTAMP, 0, $4) RETURNING *",
+      [to, subject, body, results[0].id]);      
+      today = new Date();
+      date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+      time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      dateTime = date + ' ' + time;
+      console.log(dateTime)
+      console.log('Email for agent pushed to db, email id: ' + results3[0].id);
+      
       /*
       var to = lphone_no
       const type = "text"
@@ -108,7 +154,25 @@ exports.handler = async function (event, context, callback) {
       })
       //console.log(info3);
       callback(null, { statusCode: 200, body: JSON.stringify({}) })
-      
+      */
+      to = lphone_no
+      text = 'Ticket with ID: ' + results[0].id + 'has been updated by ' + lloginname + '(' + lloginrole + ')\n' +
+      "Requester: " + results[0].username + "\n" +
+      "Title: " + results[0].title + "\n" +
+      "Deskripsi: " + results[0].deskripsi + "\n" +
+      "Priority: " + results[0].priority + "\n" +
+      "Status: " + results[0].status + "\n" +
+      "Created at: " + results[0].created_at + "\n" +
+      "Updated at: " + results[0].updated_at + "\n"
+      var results4 = await db.query("INSERT INTO wamsg(recipient, content, created_at, is_sent, ticket_id) VALUES ($1, $2, CURRENT_TIMESTAMP, 0, $3) RETURNING *",
+      [to, text, results2[0].id]);            
+      today = new Date();
+      date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+      time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      dateTime = date + ' ' + time;
+      console.log(dateTime)
+      console.log('Wa message for user pushed to db, wamsg id: ' + results4[0].id);
+      /*     
       to = handler_phone_no
       text = "Your ticket has been opened with ID: "+results2[0].id+" and dispatched to you (" + handler_username + ") with detail: \n" +
       "Requester: "+ lusername + "\n" +
@@ -126,9 +190,27 @@ exports.handler = async function (event, context, callback) {
       //console.log(info3);
       callback(null, { statusCode: 200, body: JSON.stringify({}) })   
       */   
+      to = handler_phone_no
+      text = 'Ticket with ID: ' + results[0].id + 'has been updated by ' + lloginname + '(' + lloginrole + ')\n' +
+      "Requester: " + results[0].username + "\n" +
+      "Title: " + results[0].title + "\n" +
+      "Deskripsi: " + results[0].deskripsi + "\n" +
+      "Priority: " + results[0].priority + "\n" +
+      "Status: " + results[0].status + "\n" +
+      "Created at: " + results[0].created_at + "\n" +
+      "Updated at: " + results[0].updated_at + "\n"
+      var results5 = await db.query("INSERT INTO wamsg(recipient, content, created_at, is_sent, ticket_id) VALUES ($1, $2, CURRENT_TIMESTAMP, 0, $3) RETURNING *",
+      [to, text, results2[0].id]);            
+      today = new Date();
+      date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+      time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      dateTime = date + ' ' + time;
+      console.log(dateTime)
+      console.log('Wa message for user pushed to db, wamsg id: ' + results5[0].id);
     }
     catch (error) {
-      callback(error);
+      console.log(error);
+      callback(error);      
     }
     return {
       statusCode: 200,

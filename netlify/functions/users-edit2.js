@@ -23,11 +23,13 @@ exports.handler = async function (event, context) {
     let lpassword = JSON.parse(event.body).password
     let lphone_no = JSON.parse(event.body).phone_no
     let lrole_user = JSON.parse(event.body).role_user
+    let lanper = JSON.parse(event.body).anper
     console.log(lusername)
     console.log(lemail)
     console.log(lpassword)
     console.log(lphone_no)
     console.log(lrole_user)
+    console.log(lanper)
     try {
       const result = await db.query('select password from users where id=$1', [paramid])      
       if (lpassword !== result[0].password) {
@@ -35,8 +37,8 @@ exports.handler = async function (event, context) {
         let hash = bcryptjs.hashSync(lpassword, 10)
         lpassword = hash
       }
-      const result2 = await db.query('UPDATE users SET username = $1, email = $2, password=$3, phone_no=$4, role_user=$5, updated_at=CURRENT_TIMESTAMP WHERE id = $6 RETURNING *',
-        [lusername, lemail, lpassword, lphone_no, lrole_user, paramid])
+      const result2 = await db.query('UPDATE users SET username = $1, email = $2, password=$3, phone_no=$4, role_user=$5, anper=$6, updated_at=CURRENT_TIMESTAMP WHERE id = $7 RETURNING *',
+        [lusername, lemail, lpassword, lphone_no, lrole_user, lanper, paramid])
       console.log(result2)
       json_msg = result2;
     }
