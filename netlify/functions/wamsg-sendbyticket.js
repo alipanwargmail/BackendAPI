@@ -27,7 +27,8 @@ exports.handler = async function (event, context, callback) {
     try {
       var results = await db.query("select * from wamsg where ticket_id=$1 and is_sent=0",
         [ticket_id])
-      if (results.length !== 'Undefined') {
+        console.log(results)
+        if (results.length !== 'Undefined') {
          today = new Date();
          date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
          time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -52,7 +53,7 @@ exports.handler = async function (event, context, callback) {
           dateTime = date + ' ' + time;
            console.log("3"+dateTime)
           //callback(null, { statusCode: 200, body: JSON.stringify({}) })
-          await db.query("update emails set is_sent=1, sent_at=CURRENT_TIMESTAMP where id=$1",
+          await db.query("update wamsg set is_sent=1, sent_at=CURRENT_TIMESTAMP where id=$1",
             [results[0].id])
             today = new Date();
             date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
