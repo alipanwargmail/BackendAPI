@@ -27,7 +27,7 @@ exports.handler = async function (event, context, callback) {
     let lhandler_username = JSON.parse(event.body).handler_username
     let ltitle = JSON.parse(event.body).title
     let ldeskripsi = JSON.parse(event.body).deskripsi
-    let lstatus = JSON.parse(event.body).priority
+    let lstatus = JSON.parse(event.body).status
     let lemail = JSON.parse(event.body).email
     let lphone_no = JSON.parse(event.body).phone_no
     let lhandler_phone_no = JSON.parse(event.body).handler_phone_no
@@ -49,6 +49,7 @@ exports.handler = async function (event, context, callback) {
     console.log(lphone_no)
     console.log(lhandler_phone_no)
     console.log(lanper)
+    console.log(lpriority)
     var today = new Date();
     var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -56,7 +57,7 @@ exports.handler = async function (event, context, callback) {
     console.log(dateTime)
 
     try {
-      var results = await db.query('UPDATE tickets SET user_id = $1, handler_user_id=$2, username=$3, handler_username=$4, title=$5, deskripsi=$6, priority=$7, status=$8, anper=$9 updated_at=CURRENT_TIMESTAMP WHERE id = $10 RETURNING *',
+      var results = await db.query('UPDATE tickets SET user_id = $1, handler_user_id=$2, username=$3, handler_username=$4, title=$5, deskripsi=$6, priority=$7, status=$8, anper=$9, updated_at=CURRENT_TIMESTAMP WHERE id = $10 RETURNING *',
       [luser_id, lhandler_user_id, lusername, lhandler_username, ltitle, ldeskripsi, lpriority, lstatus, lanper, paramid])
       json_msg = results;
     }
