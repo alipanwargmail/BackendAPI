@@ -194,7 +194,7 @@ exports.handler = async function (event, context, callback) {
       //console.log(info3);
       callback(null, { statusCode: 200, body: JSON.stringify({}) })   
       */   
-      to = handler_phone_no
+      to = lhandler_phone_no
       text = 'Ticket with ID: ' + results[0].id + 'has been updated by ' + lloginname + '(' + lloginrole + ')\n' +
       "Requester: " + results[0].username + "\n" +
       "Title: " + results[0].title + "\n" +
