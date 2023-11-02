@@ -32,6 +32,7 @@ exports.handler = async function (event, context, callback) {
     let lphone_no = JSON.parse(event.body).phone_no
     let lhandler_phone_no = JSON.parse(event.body).handler_phone_no
     let lanper = JSON.parse(event.body).anper
+    let lpriority = JSON.parse(event.body).priority
     console.log(llogin_id)
     console.log(lloginname)
     console.log(lloginrole)
