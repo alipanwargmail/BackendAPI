@@ -30,6 +30,7 @@ exports.handler = async function (event, context, callback) {
     let lstatus = JSON.parse(event.body).status
     let lemail = JSON.parse(event.body).email
     let lphone_no = JSON.parse(event.body).phone_no
+    let lhandler_email = JSON.parse(event.body).handler_email
     let lhandler_phone_no = JSON.parse(event.body).handler_phone_no
     let lanper = JSON.parse(event.body).anper
     let lpriority = JSON.parse(event.body).priority
@@ -47,6 +48,7 @@ exports.handler = async function (event, context, callback) {
     console.log(lstatus)
     console.log(lemail)
     console.log(lphone_no)
+    console.log(lhandler_email)
     console.log(lhandler_phone_no)
     console.log(lanper)
     console.log(lpriority)
@@ -123,7 +125,7 @@ exports.handler = async function (event, context, callback) {
           "Created at: " + results2[0].created_at + "\n"
       })
       console.log('Email for agent sent: ' + info2.response);*/
-      to = handler_email
+      to = lhandler_email
       subject = 'Ticket with ID: ' + results[0].id + ' has been updated'
       body = 'Ticket with ID: ' + results[0].id + 'has been updated by ' + lloginname + '(' + lloginrole + ')\n' +
       "Requester: " + results[0].username + "\n" +
